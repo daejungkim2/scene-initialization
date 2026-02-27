@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scene Initialization — Project Page</title>
+  <meta name="description" content="Project page for a T-IV submission on scene initialization for autonomous driving." />
+
+  <style>
+    :root{
+      --bg:#ffffff;
+      --fg:#111111;
+      --muted:#555;
+      --subtle:#777;
+      --line:#e9e9e9;
+      --card:#fafafa;
+      --chip:#f3f3f3;
+      --shadow: 0 6px 20px rgba(0,0,0,0.06);
+      --radius: 16px;
+      --radius-sm: 12px;
+      --max: 1020px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0; padding:0; background:var(--bg); color:var(--fg); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji"; line-height:1.45;}
+    a{color:inherit; text-decoration: none; border-bottom: 1px solid rgba(0,0,0,0.18);}
+    a:hover{border-bottom-color: rgba(0,0,0,0.55);}
+    .wrap{max-width:var(--max); margin:0 auto; padding:34px 18px 60px;}
+    .topbar{display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:10px 0 22px; border-bottom:1px solid var(--line);}
+    .brand{display:flex; gap:10px; align-items:center;}
+    .dot{width:10px; height:10px; border-radius:999px; background:#111;}
+    .brand b{font-size:14px; letter-spacing:0.2px;}
+    .nav{display:flex; gap:14px; flex-wrap:wrap; font-size:13px; color:var(--muted);}
+    .nav a{border-bottom:none; padding:6px 8px; border-radius:10px;}
+    .nav a:hover{background:var(--chip);}
+    header{padding:26px 0 18px;}
+    h1{font-size:34px; line-height:1.15; margin:0 0 10px;}
+    .subtitle{margin:0 0 14px; color:var(--muted); font-size:15px;}
+    .meta{display:flex; gap:10px; flex-wrap:wrap; align-items:center; color:var(--subtle); font-size:13px;}
+    .pill{display:inline-flex; align-items:center; gap:8px; background:var(--chip); border:1px solid var(--line); padding:6px 10px; border-radius:999px;}
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px;}
+    .btn{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:9px 12px; border-radius:999px;
+      border:1px solid var(--line); background:#fff;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+      font-size:13px;
+      cursor:pointer;
+    }
+    .btn:hover{background:var(--chip);}
+    .btn.primary{background:#111; color:#fff; border-color:#111;}
+    .btn.primary:hover{background:#000;}
+    .grid{display:grid; grid-template-columns: 1fr; gap:16px; margin:20px 0 10px;}
+    @media(min-width: 920px){
+      .grid{grid-template-columns: 1.2fr 0.8fr;}
+    }
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow: var(--shadow);
+    }
+    .card h2{font-size:16px; margin:0 0 10px;}
+    .card p{margin:8px 0; color:var(--muted); font-size:14px;}
+    .teaser{
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background:#fff;
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    .teaser img{display:block; width:100%; height:auto;}
+    section{margin-top:26px;}
+    section h2{font-size:18px; margin:0 0 10px;}
+    section .hint{color:var(--muted); font-size:13px; margin:0 0 12px;}
+    .two{display:grid; grid-template-columns:1fr; gap:14px;}
+    @media(min-width: 920px){ .two{grid-template-columns:1fr 1fr;} }
+    .callout{
+      border:1px dashed #d7d7d7;
+      background:#fff;
+      border-radius: var(--radius);
+      padding:14px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .kv{display:grid; grid-template-columns: 110px 1fr; gap:6px 10px; font-size:13px; color:var(--muted);}
+    .kv div:nth-child(odd){color:#333;}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:10px;}
+    .chip{font-size:12px; color:#333; background:var(--chip); border:1px solid var(--line); padding:5px 8px; border-radius:999px;}
+    .divider{border-top:1px solid var(--line); margin:18px 0;}
+    .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;}
+
+    /* Gallery */
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin:10px 0 14px;
+    }
+    .search{
+      flex:1;
+      min-width: 220px;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      padding:10px 12px;
+      background:#fff;
+      font-size:13px;
+      outline:none;
+    }
+    .select{
+      border:1px solid var(--line);
+      border-radius: 999px;
+      padding:10px 12px;
+      background:#fff;
+      font-size:13px;
+      outline:none;
+    }
+    .toggle{
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:9px 12px;
+      background:#fff;
+      font-size:13px;
+      cursor:pointer;
+    }
+    .toggle:hover{background:var(--chip);}
+    .gallery{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:12px;
+    }
+    @media(min-width: 720px){ .gallery{grid-template-columns: 1fr 1fr;} }
+    @media(min-width: 1020px){ .gallery{grid-template-columns: 1fr 1fr 1fr;} }
+
+    figure{
+      margin:0;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+    }
+    figure img{
+      display:block;
+      width:100%;
+      height:auto;
+      background:#fff;
+    }
+    figcaption{
+      padding:10px 12px 12px;
+      border-top:1px solid var(--line);
+      font-size:12px;
+      color:var(--muted);
+      display:flex;
+      gap:8px;
+      flex-direction:column;
+    }
+    .cap-top{display:flex; gap:8px; align-items:center; justify-content:space-between;}
+    .tagrow{display:flex; gap:6px; flex-wrap:wrap;}
+    .tag{font-size:11px; padding:3px 7px; background:var(--chip); border:1px solid var(--line); border-radius:999px; color:#333;}
+    .cap-title{font-size:12px; color:#222;}
+    .muted{color:var(--muted);}
+    .small{font-size:12px;}
+    .footer{margin-top:38px; padding-top:18px; border-top:1px solid var(--line); color:var(--muted); font-size:12px;}
+    .kbd{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 6px;
+      color:#333;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <span class="dot"></span>
+        <b>Scene Initialization — Project Page</b>
+      </div>
+      <nav class="nav">
+        <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
+        <a href="#qual">Qualitative</a>
+        <a href="#comparison">Comparison</a>
+        <a href="#paper">Paper</a>
+      </nav>
+    </div>
+
+    <header>
+      <!-- ====== EDIT: Title / Subtitle ====== -->
+      <h1>Scene Initialization with Diffusion and Geometry-aware Relation Biases</h1>
+      <p class="subtitle">
+        Project page for an IEEE Transactions on Intelligent Vehicles (T-IV) submission on generating realistic initial traffic scenes from vectorized HD maps.
+      </p>
+
+      <!-- ====== EDIT: Authors / Affiliations ====== -->
+      <div class="meta">
+        <span class="pill"><b>Authors</b>: <span class="muted">Author A, Author B, Author C</span></span>
+        <span class="pill"><b>Affiliations</b>: <span class="muted">Institution 1 · Institution 2</span></span>
+        <span class="pill"><b>Status</b>: <span class="muted">Under Review</span></span>
+      </div>
+
+      <!-- ====== EDIT: Links (paper/code placeholders) ====== -->
+      <div class="btns">
+        <a class="btn primary" href="#paper">Paper (TBD)</a>
+        <a class="btn" href="#comparison">Main Table</a>
+        <a class="btn" href="#qual">GIF Gallery</a>
+        <!-- If you later add arXiv: replace href and text -->
+        <a class="btn" href="#" onclick="return false;">arXiv (TBD)</a>
+      </div>
+    </header>
+
+    <!-- ====== Teaser + Quick Summary ====== -->
+    <div class="grid">
+      <div class="teaser">
+        <div style="padding:12px 16px 10px; background:#fff; border-bottom:1px solid var(--line);">
+          <p style="margin:0; font-size:13px; color:#222; font-weight:600;">Map-conditioned scene initialization: diverse and safety-aware multi-agent placements from a vectorized HD map.</p>
+        </div>
+        <img src="assets/figs/teaser.png" alt="Map-conditioned scene initialization results">
+      </div>
+
+      <div class="card">
+        <h2>At a glance</h2>
+        <!-- ====== EDIT: Bullet points ====== -->
+        <p><b>Goal.</b> Generate plausible multi-agent initial scenes conditioned on a vectorized HD map.</p>
+        <p><b>Key components.</b> Map-conditioned diffusion + geometry-aware relation bias encoders (e.g., IAGE/ASGE).</p>
+        <p><b>Evaluation.</b> Distribution similarity (JSD-based) and vehicle-level safety rates on generated scenes.</p>
+
+        <div class="divider"></div>
+
+        <div class="kv">
+          <!-- ====== EDIT: Quick metadata ====== -->
+          <div>Datasets</div><div>nuPlan, WOMD (Evaluation on unseen LivingLab map)</div>
+          <div>Baselines</div><div>Scenario Dreamer (Large)</div>
+          <div>Outputs</div><div>Qualitative GIFs + comparison table</div>
+        </div>
+
+        <div class="chips">
+          <span class="chip">HD map conditioning</span>
+          <span class="chip">Scene initialization</span>
+          <span class="chip">Diffusion</span>
+          <span class="chip">Safety-aware losses</span>
+          <span class="chip">Geometry relations</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="callout">
+          This page does not include code, model weights, or reproducibility instructions. It focuses on qualitative results and a concise summary aligned with the T-IV manuscript.
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== Abstract ====== -->
+    <section id="abstract">
+      <h2>Abstract</h2>
+      <p class="hint">Replace the placeholder text with the abstract from your T-IV paper.</p>
+      <div class="card">
+        <!-- ====== EDIT: Abstract text ====== -->
+        <p>
+          <b>Placeholder.</b> We propose a map-conditioned generative model for initializing realistic multi-agent traffic scenes.
+          The method produces lane-consistent placements and physically plausible interactions, and improves distributional realism and safety statistics on multiple benchmarks.
+        </p>
+      </div>
+    </section>
+
+    <!-- ====== Method ====== -->
+    <section id="method">
+      <h2>Method</h2>
+
+      <div class="two">
+        <!-- Left: text -->
+        <div style="display:flex; flex-direction:column; gap:14px;">
+          <div class="card">
+            <h2>Summary</h2>
+            <ul class="small">
+              <li><b>Input:</b> Vectorized HD map (lane graph + geometry) and desired number/types of agents.</li>
+              <li><b>Map Encoder:</b> Relation-aware message-passing attention over lane topology produces compact map latents.</li>
+              <li><b>Agent Encoder:</b> IAGE-biased self-attention captures timestep-unconditioned interaction priors, yielding agent latents.</li>
+              <li><b>Diffusion Denoiser:</b> AdaLN-conditioned denoiser iteratively refines noisy agent states via IAGE self-attention, AMGE agent–map cross-attention, and a pointwise FFN.</li>
+              <li><b>Output:</b> Diverse, physically valid and map-consistent initial scene configurations for downstream simulation.</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h2>Key components</h2>
+            <div class="kv">
+              <div>IAGE</div><div>Interaction-Aware Geometry Encoder — biases agent self-attention with pairwise geometric relations.</div>
+              <div>AMGE</div><div>Agent–Map Geometry Encoder — biases cross-attention between agents and map latents.</div>
+              <div>AdaLN</div><div>Adaptive Layer Normalization — injects diffusion timestep conditioning via scale-and-shift.</div>
+              <div>Losses</div><div>Diffusion objective + unified safety, alignment, and reconstruction auxiliary losses.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: figure -->
+        <div class="teaser">
+          <img src="assets/figs/network.png" alt="Overview of the proposed topology- and geometry-aware diffusion network for traffic scene initialization">
+          <div style="padding:12px 14px 14px; border-top:1px solid var(--line); background:#fff;">
+            <p style="margin:0 0 6px; font-size:12px; color:#222;"><b>Overview of the proposed topology- and geometry-aware diffusion network.</b></p>
+            <p style="margin:0 0 5px; font-size:11px; color:var(--muted);"><b>Left-top: Map Encoder.</b> Relation-aware message-passing attention on lane topology.</p>
+            <p style="margin:0 0 5px; font-size:11px; color:var(--muted);"><b>Left-bottom: Agent Encoder.</b> IAGE-biased self-attention for timestep-unconditioned interaction priors.</p>
+            <p style="margin:0; font-size:11px; color:var(--muted);"><b>Right: Diffusion Denoiser.</b> AdaLN-conditioned; refines states via IAGE self-attention, AMGE cross-attention, and FFN.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Qualitative Results ====== -->
+    <section id="qual">
+      <h2>Qualitative Results (GIF Gallery)</h2>
+
+      <div id="gallery" class="gallery">
+        <!-- LivingLab 1 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization">
+          <img loading="lazy" src="assets/gifs/livinglab/1.gif" alt="LivingLab scene 1">
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 1</div>
+              <div class="muted">#0001</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+            </div>
+            <div class="muted">Generalization to an unseen LivingLab map with stable safety statistics.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 2 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization">
+          <img loading="lazy" src="assets/gifs/livinglab/2.gif" alt="LivingLab scene 2">
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 2</div>
+              <div class="muted">#0002</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+            </div>
+            <div class="muted">Lane-consistent placements on an unseen LivingLab map.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 3 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization">
+          <img loading="lazy" src="assets/gifs/livinglab/3.gif" alt="LivingLab scene 3">
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 3</div>
+              <div class="muted">#0003</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+            </div>
+            <div class="muted">Diverse multi-agent samples demonstrating map generalization.</div>
+          </figcaption>
+        </figure>
+
+      </div>
+    </section>
+
+    <!-- ====== Comparison ====== -->
+    <section id="comparison">
+      <h2>Quantitative Comparison</h2>
+      <p class="hint">Add one main table/figure (as an image). Keep it readable at web scale.</p>
+
+      <div class="two" style="grid-template-columns: 2fr 1fr;">
+        <div class="card">
+          <h2>Main table/figure</h2>
+          <img src="assets/figs/sd_comparison.png" alt="Quantitative comparison table" style="width:100%; border-radius:14px; border:1px solid var(--line); background:#fff;">
+        </div>
+
+        <div class="card">
+          <h2>Notes</h2>
+          <!-- ====== EDIT: Short interpretation ====== -->
+          <ul class="small">
+            <li>Report distribution similarity (JSD-based) and safety rates on generated scenes.</li>
+            <li>If you reference baselines, ensure the evaluation protocol is clearly stated in the paper.</li>
+            <li>Use the same metric naming as in the manuscript for consistency.</li>
+          </ul>
+          <div class="divider"></div>
+          <p class="small muted">
+            Optional: add a small legend explaining any symbols (e.g., <span class="mono">NR</span> for not reported).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Paper ====== -->
+    <section id="paper">
+      <h2>Paper</h2>
+      <p class="hint">Keep placeholders until acceptance. Replace links when ready.</p>
+
+      <div class="two">
+        <div class="card">
+          <h2>PDF</h2>
+          <p class="small">
+            Paper PDF will be uploaded after acceptance.
+          </p>
+          <div class="btns">
+            <a class="btn" href="#" onclick="return false;">Paper (PDF) — TBD</a>
+            <a class="btn" href="#" onclick="return false;">BibTeX — TBD</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Citation</h2>
+          <p class="small muted">Replace with the final BibTeX after acceptance.</p>
+          <pre style="margin:0; padding:14px; border-radius:14px; border:1px solid var(--line); background:#fff; overflow:auto;"><code class="mono">@article{sceneinit2026,
+  title   = {Scene Initialization with ...},
+  author  = {Author A and Author B and Author C},
+  journal = {IEEE Transactions on Intelligent Vehicles},
+  year    = {2026}
+}</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Acknowledgements / Contact (TBD) ====== -->
+    <section id="contact">
+      <h2>Acknowledgements & Contact</h2>
+      <p class="hint">Add these after acceptance.</p>
+      <div class="card">
+        <p class="small"><b>Acknowledgements:</b> TBD</p>
+        <p class="small"><b>Contact:</b> TBD</p>
+      </div>
+    </section>
+
+    <div class="footer">
+      <div>
+        <span class="muted">Usage:</span>
+        Press <span class="kbd">/</span> to focus search, use the dataset dropdown to filter GIFs.
+      </div>
+      <div style="margin-top:6px;">
+        © <span id="year"></span> — Project page for a T-IV submission. All rights reserved.
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== Utilities =====
+    const $ = (id) => document.getElementById(id);
+
+    const searchInput = $("search");
+    const datasetSelect = $("dataset");
+    const resetBtn = $("reset");
+    const gallery = $("gallery");
+
+    const figures = Array.from(gallery.querySelectorAll("figure"));
+
+    function normalize(s){
+      return (s || "").toLowerCase().trim();
+    }
+
+    function applyFilter(){
+      const q = normalize(searchInput.value);
+      const ds = datasetSelect.value;
+
+      figures.forEach(fig => {
+        const figDs = fig.getAttribute("data-dataset") || "";
+        const tags = fig.getAttribute("data-tags") || "";
+        const text = fig.innerText || "";
+        const hay = normalize(tags + " " + text);
+
+        const matchDs = (ds === "all") || (normalize(figDs) === ds);
+        const matchQ  = (!q) || hay.includes(q);
+
+        fig.style.display = (matchDs && matchQ) ? "" : "none";
+      });
+    }
+
+    searchInput.addEventListener("input", applyFilter);
+    datasetSelect.addEventListener("change", applyFilter);
+
+    resetBtn.addEventListener("click", () => {
+      searchInput.value = "";
+      datasetSelect.value = "all";
+      applyFilter();
+    });
+
+    // Keyboard shortcut: "/" focuses search
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "/" && document.activeElement !== searchInput) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      // Escape clears search
+      if (e.key === "Escape" && document.activeElement === searchInput) {
+        searchInput.value = "";
+        applyFilter();
+      }
+    });
+
+    // Footer year
+    $("year").textContent = new Date().getFullYear();
+
+    // Initial filter
+    applyFilter();
+  </script>
+</body>
+</html>
