@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Scene Initialization — Project Page</title>
-  <meta name="description" content="Project page for a T-IV submission on scene initialization for autonomous driving." />
+  <title>SFiD-Init — Safety- and Fidelity-Regularized Diffusion for HD-Map-Conditioned Traffic Scene Initialization</title>
+  <meta name="description" content="SFiD-Init: a safety- and fidelity-regularized diffusion framework for HD-map-conditioned traffic scene initialization. Generates diverse, realistic, and physically valid multi-agent initial scenes from vectorized HD maps." />
 
   <style>
     :root{
@@ -177,7 +177,7 @@
     <div class="topbar">
       <div class="brand">
         <span class="dot"></span>
-        <b>Scene Initialization — Project Page</b>
+        <b>SFiD-Init — Project Page</b>
       </div>
       <nav class="nav">
         <a href="#abstract">Abstract</a>
@@ -190,9 +190,9 @@
 
     <header>
       <!-- ====== EDIT: Title / Subtitle ====== -->
-      <h1>Scene Initialization with Diffusion and Geometry-aware Relation Biases</h1>
+      <h1>Safety- and Fidelity-Regularized Diffusion for HD-Map-Conditioned Traffic Scene Initialization</h1>
       <p class="subtitle">
-        Project page for an IEEE Transactions on Intelligent Vehicles (T-IV) submission on generating realistic initial traffic scenes from vectorized HD maps.
+        SFiD-Init: a topology- and geometry-aware diffusion framework that generates diverse, realistic, and physically valid multi-agent initial scenes from vectorized HD maps, with safety-shaped and fidelity-preserving regularization.
       </p>
 
       <!-- ====== EDIT: Authors / Affiliations ====== -->
@@ -215,53 +215,55 @@
     <!-- ====== Teaser + Quick Summary ====== -->
     <div class="grid">
       <div class="teaser">
-        <div style="padding:12px 16px 10px; background:#fff; border-bottom:1px solid var(--line);">
-          <p style="margin:0; font-size:13px; color:#222; font-weight:600;">Map-conditioned scene initialization: diverse and safety-aware multi-agent placements from a vectorized HD map.</p>
+        <img src="assets/figs/teaser.png" alt="Overview of SFiD-Init framework for HD-map-conditioned traffic scene initialization">
+        <div style="padding:12px 16px 14px; background:#fff; border-top:1px solid var(--line);">
+          <p style="margin:0; font-size:13px; color:var(--muted);">Overview of SFiD-Init. A topology-aware lane-graph Map Encoder and an interaction-aware Agent Encoder provide map/agent embeddings to a diffusion Transformer denoiser, which iteratively refines noisy agent states using inter-agent and agent–map geometric relation biases (IAGE/AMGE). Safety-shaped and fidelity regularizers during training reduce collision/off-road violations while preserving map-consistent scene statistics.</p>
         </div>
-        <img src="assets/figs/teaser.png" alt="Map-conditioned scene initialization results">
       </div>
 
       <div class="card">
         <h2>At a glance</h2>
         <!-- ====== EDIT: Bullet points ====== -->
-        <p><b>Goal.</b> Generate plausible multi-agent initial scenes conditioned on a vectorized HD map.</p>
-        <p><b>Key components.</b> Map-conditioned diffusion + geometry-aware relation bias encoders (e.g., IAGE/ASGE).</p>
-        <p><b>Evaluation.</b> Distribution similarity (JSD-based) and vehicle-level safety rates on generated scenes.</p>
+        <p><b>Goal.</b> Formulate HD-map-conditioned traffic scene initialization as conditional diffusion generation of joint multi-agent initial states satisfying lane topology/semantics and physical validity.</p>
+        <p><b>Key idea.</b> Topology-aware Map Encoder + interaction-aware Agent Encoder + diffusion Transformer denoiser with continuous geometric relation biases (IAGE/AMGE), regularized by a differentiable safety-shaped loss and fidelity-preserving objectives.</p>
+        <p><b>Evaluation.</b> Distribution similarity (JSD-based) and safety rates (collision/off-road) on nuPlan, WOMD, and unseen Hwaseong LivingLab map.</p>
 
         <div class="divider"></div>
 
         <div class="kv">
           <!-- ====== EDIT: Quick metadata ====== -->
           <div>Datasets</div><div>nuPlan, WOMD (Evaluation on unseen LivingLab map)</div>
-          <div>Baselines</div><div>Scenario Dreamer (Large)</div>
+          <div>Baselines</div><div>SceneGen, TrafficGen, SceneDiffusion, ScenarioDreamer, etc.</div>
           <div>Outputs</div><div>Qualitative GIFs + comparison table</div>
         </div>
 
         <div class="chips">
           <span class="chip">HD map conditioning</span>
           <span class="chip">Scene initialization</span>
-          <span class="chip">Diffusion</span>
-          <span class="chip">Safety-aware losses</span>
-          <span class="chip">Geometry relations</span>
+          <span class="chip">Diffusion Transformer</span>
+          <span class="chip">Safety-shaped loss</span>
+          <span class="chip">Fidelity regularization</span>
+          <span class="chip">Geometric relation biases</span>
         </div>
 
-        <div class="divider"></div>
-
-        <div class="callout">
-          This page does not include code, model weights, or reproducibility instructions. It focuses on qualitative results and a concise summary aligned with the T-IV manuscript.
-        </div>
       </div>
+    </div>
+
+    <div class="callout" style="margin-top:14px;">
+      This page provides qualitative visualizations and a concise summary of SFiD-Init aligned with the IEEE T-IV manuscript. Code and model weights are not included at this time.
     </div>
 
     <!-- ====== Abstract ====== -->
     <section id="abstract">
       <h2>Abstract</h2>
-      <p class="hint">Replace the placeholder text with the abstract from your T-IV paper.</p>
       <div class="card">
         <!-- ====== EDIT: Abstract text ====== -->
         <p>
-          <b>Placeholder.</b> We propose a map-conditioned generative model for initializing realistic multi-agent traffic scenes.
-          The method produces lane-consistent placements and physically plausible interactions, and improves distributional realism and safety statistics on multiple benchmarks.
+          Traffic simulation for autonomous driving requires diverse and physically valid initial scenes, yet large-scale scenario authoring remains labor-intensive.
+          We present \emph{SFiD-Init}, a safety- and fidelity-regularized diffusion framework for HD-map-conditioned traffic scene initialization.
+          SFiD-Init models initialization as conditional generation of a joint multi-agent state from a vectorized HD map, using a topology-aware lane-graph Map Encoder, an interaction-aware Agent Encoder, and a diffusion Transformer denoiser with inter-agent and agent--map geometric relation biases (IAGE/AMGE).
+          To improve physical validity without drifting from the underlying scene distribution, we regularize diffusion training with a differentiable safety-shaped loss for collision/off-road violations and fidelity regularizers that preserve map--agent semantic consistency (contrastive alignment and masked map reconstruction).
+          Experiments on nuPlan and the Waymo Open Motion Dataset demonstrate that SFiD-Init produces realistic and largely valid initial scenes under a larger spatial context and higher agent capacity, and generalizes to an unseen real-world map (Hwaseong LivingLab).
         </p>
       </div>
     </section>
@@ -276,33 +278,35 @@
           <div class="card">
             <h2>Summary</h2>
             <ul class="small">
-              <li><b>Input:</b> Vectorized HD map (lane graph + geometry) and desired number/types of agents.</li>
-              <li><b>Map Encoder:</b> Relation-aware message-passing attention over lane topology produces compact map latents.</li>
-              <li><b>Agent Encoder:</b> IAGE-biased self-attention captures timestep-unconditioned interaction priors, yielding agent latents.</li>
-              <li><b>Diffusion Denoiser:</b> AdaLN-conditioned denoiser iteratively refines noisy agent states via IAGE self-attention, AMGE agent–map cross-attention, and a pointwise FFN.</li>
-              <li><b>Output:</b> Diverse, physically valid and map-consistent initial scene configurations for downstream simulation.</li>
+              <li><b>Input:</b> Vectorized HD map (lane graph with predecessor/successor/adjacent relations) and desired number/types of agents.</li>
+              <li><b>Map Encoder:</b> Topology-aware sparse message-passing attention over lane graphs with optional FiLM-based dynamic context (e.g., traffic signal phases).</li>
+              <li><b>Agent Encoder:</b> IAGE-biased self-attention captures interaction-aware agent embeddings as timestep-unconditioned priors.</li>
+              <li><b>Diffusion Denoiser:</b> AdaLN-conditioned Transformer iteratively refines noisy agent states via IAGE self-attention, AMGE agent–map cross-attention, and a pointwise FFN.</li>
+              <li><b>Training:</b> Diffusion objective + differentiable safety-shaped loss (collision/off-road) + fidelity regularizers (contrastive alignment, masked map reconstruction) to reduce invalidity while mitigating distribution drift.</li>
+              <li><b>Output:</b> Diverse, physically valid and map-consistent joint multi-agent initial scene configurations for downstream simulation.</li>
             </ul>
           </div>
 
           <div class="card">
             <h2>Key components</h2>
             <div class="kv">
-              <div>IAGE</div><div>Interaction-Aware Geometry Encoder — biases agent self-attention with pairwise geometric relations.</div>
-              <div>AMGE</div><div>Agent–Map Geometry Encoder — biases cross-attention between agents and map latents.</div>
+              <div>IAGE</div><div>Inter-Agent Geometric relation bias Encoder — additive attention bias in agent self-attention with continuous pairwise geometric relations.</div>
+              <div>AMGE</div><div>Agent–Map Geometric relation bias Encoder — additive attention bias in cross-attention between agents and map latents.</div>
               <div>AdaLN</div><div>Adaptive Layer Normalization — injects diffusion timestep conditioning via scale-and-shift.</div>
-              <div>Losses</div><div>Diffusion objective + unified safety, alignment, and reconstruction auxiliary losses.</div>
+              <div>Safety</div><div>Differentiable safety-shaped loss penalizing collision and off-road violations during training.</div>
+              <div>Fidelity</div><div>Contrastive map–agent alignment + masked map reconstruction to prevent distribution drift under safety regularization.</div>
             </div>
           </div>
         </div>
 
         <!-- Right: figure -->
         <div class="teaser">
-          <img src="assets/figs/network.png" alt="Overview of the proposed topology- and geometry-aware diffusion network for traffic scene initialization">
+          <img src="assets/figs/network.png" alt="Network architecture of SFiD-Init: topology-aware Map Encoder, interaction-aware Agent Encoder, and diffusion Transformer denoiser">
           <div style="padding:12px 14px 14px; border-top:1px solid var(--line); background:#fff;">
-            <p style="margin:0 0 6px; font-size:12px; color:#222;"><b>Overview of the proposed topology- and geometry-aware diffusion network.</b></p>
-            <p style="margin:0 0 5px; font-size:11px; color:var(--muted);"><b>Left-top: Map Encoder.</b> Relation-aware message-passing attention on lane topology.</p>
-            <p style="margin:0 0 5px; font-size:11px; color:var(--muted);"><b>Left-bottom: Agent Encoder.</b> IAGE-biased self-attention for timestep-unconditioned interaction priors.</p>
-            <p style="margin:0; font-size:11px; color:var(--muted);"><b>Right: Diffusion Denoiser.</b> AdaLN-conditioned; refines states via IAGE self-attention, AMGE cross-attention, and FFN.</p>
+            <p style="margin:0 0 6px; font-size:12px; color:#222;"><b>Network architecture of SFiD-Init.</b></p>
+            <p style="margin:0 0 5px; font-size:11px; color:var(--muted);"><b>Left-top: Map Encoder.</b> Topology-aware sparse message-passing attention over lane graphs (predecessor/successor/adjacent).</p>
+            <p style="margin:0 0 5px; font-size:11px; color:var(--muted);"><b>Left-bottom: Agent Encoder.</b> IAGE-biased self-attention producing interaction-aware agent embeddings.</p>
+            <p style="margin:0; font-size:11px; color:var(--muted);"><b>Right: Diffusion Denoiser.</b> AdaLN-conditioned Transformer refining noisy states via IAGE self-attention, AMGE cross-attention, and FFN with safety and fidelity regularization.</p>
           </div>
         </div>
       </div>
@@ -326,7 +330,7 @@
               <span class="tag">unseen</span>
               <span class="tag">generalization</span>
             </div>
-            <div class="muted">Generalization to an unseen LivingLab map with stable safety statistics.</div>
+            <div class="muted">Generalization to the unseen Hwaseong LivingLab map — lane-consistent and largely collision-free initial scenes.</div>
           </figcaption>
         </figure>
 
@@ -343,7 +347,7 @@
               <span class="tag">unseen</span>
               <span class="tag">generalization</span>
             </div>
-            <div class="muted">Lane-consistent placements on an unseen LivingLab map.</div>
+            <div class="muted">Lane-consistent and physically valid placements on the unseen Hwaseong LivingLab map.</div>
           </figcaption>
         </figure>
 
@@ -360,7 +364,7 @@
               <span class="tag">unseen</span>
               <span class="tag">generalization</span>
             </div>
-            <div class="muted">Diverse multi-agent samples demonstrating map generalization.</div>
+            <div class="muted">Diverse multi-agent initial scene samples demonstrating robust generalization to unseen map topology.</div>
           </figcaption>
         </figure>
 
@@ -370,7 +374,7 @@
     <!-- ====== Comparison ====== -->
     <section id="comparison">
       <h2>Quantitative Comparison</h2>
-      <p class="hint">Add one main table/figure (as an image). Keep it readable at web scale.</p>
+      <p class="hint">Distribution similarity (JSD-based) and safety rates on nuPlan, WOMD, and Hwaseong LivingLab.</p>
 
       <div class="two" style="grid-template-columns: 2fr 1fr;">
         <div class="card">
@@ -382,13 +386,13 @@
           <h2>Notes</h2>
           <!-- ====== EDIT: Short interpretation ====== -->
           <ul class="small">
-            <li>Report distribution similarity (JSD-based) and safety rates on generated scenes.</li>
-            <li>If you reference baselines, ensure the evaluation protocol is clearly stated in the paper.</li>
-            <li>Use the same metric naming as in the manuscript for consistency.</li>
+            <li>SFiD-Init produces realistic and largely valid initial scenes under a larger spatial context and higher agent capacity.</li>
+            <li>Safety-shaped loss and fidelity regularizers reduce collision/off-road violations while preserving distributional realism.</li>
+            <li>Generalization to the unseen Hwaseong LivingLab map demonstrates robustness to novel environments.</li>
           </ul>
           <div class="divider"></div>
           <p class="small muted">
-            Optional: add a small legend explaining any symbols (e.g., <span class="mono">NR</span> for not reported).
+            <span class="mono">NR</span>: not reported by the baseline. Evaluation follows the same protocol as described in the manuscript.
           </p>
         </div>
       </div>
@@ -397,7 +401,7 @@
     <!-- ====== Paper ====== -->
     <section id="paper">
       <h2>Paper</h2>
-      <p class="hint">Keep placeholders until acceptance. Replace links when ready.</p>
+      <p class="hint">Under review at IEEE Transactions on Intelligent Vehicles (T-IV). Links will be updated upon acceptance.</p>
 
       <div class="two">
         <div class="card">
@@ -413,9 +417,10 @@
 
         <div class="card">
           <h2>Citation</h2>
-          <p class="small muted">Replace with the final BibTeX after acceptance.</p>
-          <pre style="margin:0; padding:14px; border-radius:14px; border:1px solid var(--line); background:#fff; overflow:auto;"><code class="mono">@article{sceneinit2026,
-  title   = {Scene Initialization with ...},
+          <p class="small muted">Provisional BibTeX — will be updated upon acceptance.</p>
+          <pre style="margin:0; padding:14px; border-radius:14px; border:1px solid var(--line); background:#fff; overflow:auto;"><code class="mono">@article{sfidinit2026,
+  title   = {Safety- and Fidelity-Regularized Diffusion
+             for HD-Map-Conditioned Traffic Scene Initialization},
   author  = {Author A and Author B and Author C},
   journal = {IEEE Transactions on Intelligent Vehicles},
   year    = {2026}
@@ -440,7 +445,7 @@
         Press <span class="kbd">/</span> to focus search, use the dataset dropdown to filter GIFs.
       </div>
       <div style="margin-top:6px;">
-        © <span id="year"></span> — Project page for a T-IV submission. All rights reserved.
+        © <span id="year"></span> — SFiD-Init: Safety- and Fidelity-Regularized Diffusion for HD-Map-Conditioned Traffic Scene Initialization. All rights reserved.
       </div>
     </div>
   </div>
