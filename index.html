@@ -1,3 +1,4 @@
+<!-- 실행 방법: python3 -m http.server 8080 -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -169,6 +170,82 @@
       border-radius: 6px;
       color:#333;
     }
+
+    /* GIF play badge */
+    .gif-thumb{
+      position: relative;
+      cursor: pointer;
+    }
+    .gif-thumb::after{
+      content: "▶  GIF";
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      background: rgba(0,0,0,0.62);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+    .gif-thumb:hover::after{
+      background: rgba(0,0,0,0.82);
+    }
+
+    /* Lightbox modal */
+    #gif-modal{
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(0,0,0,0.78);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #gif-modal.open{ display: flex; }
+    #gif-modal .modal-box{
+      position: relative;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.4);
+      max-width: min(760px, 100%);
+      width: 100%;
+      overflow: hidden;
+    }
+    #gif-modal img{
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    #gif-modal .modal-caption{
+      padding: 10px 14px 12px;
+      font-size: 13px;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+    #gif-modal .modal-close{
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.55);
+      color: #fff;
+      border: none;
+      font-size: 16px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    #gif-modal .modal-close:hover{ background: rgba(0,0,0,0.82); }
   </style>
 </head>
 
@@ -197,8 +274,8 @@
 
       <!-- ====== EDIT: Authors / Affiliations ====== -->
       <div class="meta">
-        <span class="pill"><b>Authors</b>: <span class="muted">Author A, Author B, Author C</span></span>
-        <span class="pill"><b>Affiliations</b>: <span class="muted">Institution 1 · Institution 2</span></span>
+        <span class="pill"><b>Authors</b>: <span class="muted">Dae Jung Kim, Seulbin Hwang, Jinhan Lee</span></span>
+        <span class="pill"><b>Affiliations</b>: <span class="muted">NAVER LABS.</span></span>
         <span class="pill"><b>Status</b>: <span class="muted">Under Review</span></span>
       </div>
 
@@ -217,7 +294,7 @@
       <div class="teaser">
         <img src="assets/figs/teaser.png" alt="Overview of SFiD-Init framework for HD-map-conditioned traffic scene initialization">
         <div style="padding:12px 16px 14px; background:#fff; border-top:1px solid var(--line);">
-          <p style="margin:0; font-size:13px; color:var(--muted);">Overview of SFiD-Init. A topology-aware lane-graph Map Encoder and an interaction-aware Agent Encoder provide map/agent embeddings to a diffusion Transformer denoiser, which iteratively refines noisy agent states using inter-agent and agent–map geometric relation biases (IAGE/AMGE). Safety-shaped and fidelity regularizers during training reduce collision/off-road violations while preserving map-consistent scene statistics.</p>
+          <p style="margin:0; font-size:13px; color:var(--muted);">Overview of \emph{SFiD-Init} (Safety- and Fidelity-Regularized Diffusion) for HD-map-conditioned traffic scene initialization. A topology-aware lane-graph Map Encoder and an interaction-aware Agent Encoder provide map/agent embeddings to a diffusion Transformer denoiser, which iteratively refines noisy agent states using inter-agent and agent--map geometric relation biases (IAGE/AMGE). SFiD-Init employs a safety-shaped loss and fidelity regularizers during training to reduce collision/off-road violations while preserving map-consistent scene statistics, yielding realistic and largely valid initial scenes.</p>
         </div>
       </div>
 
@@ -226,21 +303,21 @@
         <!-- ====== EDIT: Bullet points ====== -->
         <p><b>Goal.</b> Formulate HD-map-conditioned traffic scene initialization as conditional diffusion generation of joint multi-agent initial states satisfying lane topology/semantics and physical validity.</p>
         <p><b>Key idea.</b> Topology-aware Map Encoder + interaction-aware Agent Encoder + diffusion Transformer denoiser with continuous geometric relation biases (IAGE/AMGE), regularized by a differentiable safety-shaped loss and fidelity-preserving objectives.</p>
-        <p><b>Evaluation.</b> Distribution similarity (JSD-based) and safety rates (collision/off-road) on nuPlan, WOMD, and unseen Hwaseong LivingLab map.</p>
+        <p><b>Evaluation.</b> Distribution similarity (JSD-based) and safety rates (collision/off-road/ttc<1s) on nuPlan, WOMD, and unseen Hwaseong LivingLab map.</p>
 
         <div class="divider"></div>
 
         <div class="kv">
           <!-- ====== EDIT: Quick metadata ====== -->
           <div>Datasets</div><div>nuPlan, WOMD (Evaluation on unseen LivingLab map)</div>
-          <div>Baselines</div><div>SceneGen, TrafficGen, SceneDiffusion, ScenarioDreamer, etc.</div>
+          <div>Baselines</div><div>ScenarioDreamer.</div>
           <div>Outputs</div><div>Qualitative GIFs + comparison table</div>
         </div>
 
         <div class="chips">
-          <span class="chip">HD map conditioning</span>
-          <span class="chip">Scene initialization</span>
+          <span class="chip">Traffic Scene initialization</span>
           <span class="chip">Diffusion Transformer</span>
+          <span class="chip">HD map conditioning</span>
           <span class="chip">Safety-shaped loss</span>
           <span class="chip">Fidelity regularization</span>
           <span class="chip">Geometric relation biases</span>
@@ -260,7 +337,7 @@
         <!-- ====== EDIT: Abstract text ====== -->
         <p>
           Traffic simulation for autonomous driving requires diverse and physically valid initial scenes, yet large-scale scenario authoring remains labor-intensive.
-          We present \emph{SFiD-Init}, a safety- and fidelity-regularized diffusion framework for HD-map-conditioned traffic scene initialization.
+          We present SFiD-Init, a safety- and fidelity-regularized diffusion framework for HD-map-conditioned traffic scene initialization.
           SFiD-Init models initialization as conditional generation of a joint multi-agent state from a vectorized HD map, using a topology-aware lane-graph Map Encoder, an interaction-aware Agent Encoder, and a diffusion Transformer denoiser with inter-agent and agent--map geometric relation biases (IAGE/AMGE).
           To improve physical validity without drifting from the underlying scene distribution, we regularize diffusion training with a differentiable safety-shaped loss for collision/off-road violations and fidelity regularizers that preserve map--agent semantic consistency (contrastive alignment and masked map reconstruction).
           Experiments on nuPlan and the Waymo Open Motion Dataset demonstrate that SFiD-Init produces realistic and largely valid initial scenes under a larger spatial context and higher agent capacity, and generalizes to an unseen real-world map (Hwaseong LivingLab).
@@ -282,7 +359,7 @@
               <li><b>Map Encoder:</b> Topology-aware sparse message-passing attention over lane graphs with optional FiLM-based dynamic context (e.g., traffic signal phases).</li>
               <li><b>Agent Encoder:</b> IAGE-biased self-attention captures interaction-aware agent embeddings as timestep-unconditioned priors.</li>
               <li><b>Diffusion Denoiser:</b> AdaLN-conditioned Transformer iteratively refines noisy agent states via IAGE self-attention, AMGE agent–map cross-attention, and a pointwise FFN.</li>
-              <li><b>Training:</b> Diffusion objective + differentiable safety-shaped loss (collision/off-road) + fidelity regularizers (contrastive alignment, masked map reconstruction) to reduce invalidity while mitigating distribution drift.</li>
+              <li><b>Training:</b> Diffusion objective + differentiable safety-shaped loss (collision/off-road) + fidelity regularizers (contrastive map-agent alignment, masked map reconstruction) to reduce invalidity while mitigating distribution drift.</li>
               <li><b>Output:</b> Diverse, physically valid and map-consistent joint multi-agent initial scene configurations for downstream simulation.</li>
             </ul>
           </div>
@@ -292,7 +369,6 @@
             <div class="kv">
               <div>IAGE</div><div>Inter-Agent Geometric relation bias Encoder — additive attention bias in agent self-attention with continuous pairwise geometric relations.</div>
               <div>AMGE</div><div>Agent–Map Geometric relation bias Encoder — additive attention bias in cross-attention between agents and map latents.</div>
-              <div>AdaLN</div><div>Adaptive Layer Normalization — injects diffusion timestep conditioning via scale-and-shift.</div>
               <div>Safety</div><div>Differentiable safety-shaped loss penalizing collision and off-road violations during training.</div>
               <div>Fidelity</div><div>Contrastive map–agent alignment + masked map reconstruction to prevent distribution drift under safety regularization.</div>
             </div>
@@ -314,57 +390,1174 @@
 
     <!-- ====== Qualitative Results ====== -->
     <section id="qual">
-      <h2>Qualitative Results (GIF Gallery)</h2>
+      <h2>Qualitative Results (Gallery)</h2>
 
       <div id="gallery" class="gallery">
         <!-- LivingLab 1 -->
-        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization">
-          <img loading="lazy" src="assets/gifs/livinglab/1.gif" alt="LivingLab scene 1">
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve"
+                data-gif="assets/gifs/livinglab/map_cache_001_curve_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 1 · Curve">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_001_curve_gen_seed_11.png" alt="LivingLab scene 1">
+          </div>
           <figcaption>
             <div class="cap-top">
-              <div class="cap-title"><b>LivingLab</b> · Scene 1</div>
-              <div class="muted">#0001</div>
+              <div class="cap-title"><b>LivingLab</b> · Scene 1 · Curve</div>
+              <div class="muted">#001</div>
             </div>
             <div class="tagrow">
               <span class="tag">LivingLab</span>
               <span class="tag">unseen</span>
               <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
             </div>
-            <div class="muted">Generalization to the unseen Hwaseong LivingLab map — lane-consistent and largely collision-free initial scenes.</div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes.</div>
           </figcaption>
         </figure>
 
         <!-- LivingLab 2 -->
-        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization">
-          <img loading="lazy" src="assets/gifs/livinglab/2.gif" alt="LivingLab scene 2">
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve"
+                data-gif="assets/gifs/livinglab/map_cache_002_curve_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 2 · Curve">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_002_curve_gen_seed_11.png" alt="LivingLab scene 2">
+          </div>
           <figcaption>
             <div class="cap-top">
-              <div class="cap-title"><b>LivingLab</b> · Scene 2</div>
-              <div class="muted">#0002</div>
+              <div class="cap-title"><b>LivingLab</b> · Scene 2 · Curve</div>
+              <div class="muted">#002</div>
             </div>
             <div class="tagrow">
               <span class="tag">LivingLab</span>
               <span class="tag">unseen</span>
               <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
             </div>
-            <div class="muted">Lane-consistent and physically valid placements on the unseen Hwaseong LivingLab map.</div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes.</div>
           </figcaption>
         </figure>
 
         <!-- LivingLab 3 -->
-        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization">
-          <img loading="lazy" src="assets/gifs/livinglab/3.gif" alt="LivingLab scene 3">
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve"
+                data-gif="assets/gifs/livinglab/map_cache_003_curve_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 3 · Curve">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_003_curve_gen_seed_11.png" alt="LivingLab scene 3">
+          </div>
           <figcaption>
             <div class="cap-top">
-              <div class="cap-title"><b>LivingLab</b> · Scene 3</div>
-              <div class="muted">#0003</div>
+              <div class="cap-title"><b>LivingLab</b> · Scene 3 · Curve</div>
+              <div class="muted">#003</div>
             </div>
             <div class="tagrow">
               <span class="tag">LivingLab</span>
               <span class="tag">unseen</span>
               <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
             </div>
-            <div class="muted">Diverse multi-agent initial scene samples demonstrating robust generalization to unseen map topology.</div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 4 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_004_curve_mergesplit_denoise_seed_7.gif"
+                data-gif-caption="LivingLab · Scene 4 · Curve · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_004_curve_mergesplit_gen_seed_7.png" alt="LivingLab scene 4">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 4 · Curve · Merge/Split</div>
+              <div class="muted">#004</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes; merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 5 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve intersection"
+                data-gif="assets/gifs/livinglab/map_cache_005_curve_intersection_denoise_seed_2026.gif"
+                data-gif-caption="LivingLab · Scene 5 · Curve · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_005_curve_intersection_gen_seed_2026.png" alt="LivingLab scene 5">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 5 · Curve · Intersection</div>
+              <div class="muted">#005</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 6 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_006_curve_mergesplit_denoise_seed_3141.gif"
+                data-gif-caption="LivingLab · Scene 6 · Curve · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_006_curve_mergesplit_gen_seed_3141.png" alt="LivingLab scene 6">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 6 · Curve · Merge/Split</div>
+              <div class="muted">#006</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes; merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 7 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_007_curve_mergesplit_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 7 · Curve · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_007_curve_mergesplit_gen_seed_13.png" alt="LivingLab scene 7">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 7 · Curve · Merge/Split</div>
+              <div class="muted">#007</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes; merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 8 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve"
+                data-gif="assets/gifs/livinglab/map_cache_008_curve_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 8 · Curve">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_008_curve_gen_seed_11.png" alt="LivingLab scene 8">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 8 · Curve</div>
+              <div class="muted">#008</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 9 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_009_curve_mergesplit_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 9 · Curve · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_009_curve_mergesplit_gen_seed_13.png" alt="LivingLab scene 9">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 9 · Curve · Merge/Split</div>
+              <div class="muted">#009</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes; merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 10 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve"
+                data-gif="assets/gifs/livinglab/map_cache_010_curve_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 10 · Curve">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_010_curve_gen_seed_11.png" alt="LivingLab scene 10">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 10 · Curve</div>
+              <div class="muted">#010</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 11 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization curve mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_011_curve_mergesplit_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 11 · Curve · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_011_curve_mergesplit_gen_seed_5.png" alt="LivingLab scene 11">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 11 · Curve · Merge/Split</div>
+              <div class="muted">#011</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Curve</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Curved road segment — agents placed with lane-consistent headings along bending lanes; merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 12 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_012_mergesplit_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 12 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_012_mergesplit_gen_seed_5.png" alt="LivingLab scene 12">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 12 · Merge/Split</div>
+              <div class="muted">#012</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 13 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_013_mergesplit_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 13 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_013_mergesplit_gen_seed_11.png" alt="LivingLab scene 13">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 13 · Merge/Split</div>
+              <div class="muted">#013</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 14 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_014_mergesplit_intersection_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 14 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_014_mergesplit_intersection_gen_seed_13.png" alt="LivingLab scene 14">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 14 · Merge/Split · Intersection</div>
+              <div class="muted">#014</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 15 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_015_mergesplit_intersection_denoise_seed_357.gif"
+                data-gif-caption="LivingLab · Scene 15 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_015_mergesplit_intersection_gen_seed_357.png" alt="LivingLab scene 15">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 15 · Merge/Split · Intersection</div>
+              <div class="muted">#015</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 16 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_016_mergesplit_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 16 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_016_mergesplit_gen_seed_11.png" alt="LivingLab scene 16">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 16 · Merge/Split</div>
+              <div class="muted">#016</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 17 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_017_mergesplit_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 17 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_017_mergesplit_gen_seed_5.png" alt="LivingLab scene 17">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 17 · Merge/Split</div>
+              <div class="muted">#017</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 18 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_018_mergesplit_denoise_seed_7.gif"
+                data-gif-caption="LivingLab · Scene 18 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_018_mergesplit_gen_seed_7.png" alt="LivingLab scene 18">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 18 · Merge/Split</div>
+              <div class="muted">#018</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 19 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_019_mergesplit_intersection_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 19 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_019_mergesplit_intersection_gen_seed_11.png" alt="LivingLab scene 19">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 19 · Merge/Split · Intersection</div>
+              <div class="muted">#019</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 20 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_020_mergesplit_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 20 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_020_mergesplit_gen_seed_13.png" alt="LivingLab scene 20">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 20 · Merge/Split</div>
+              <div class="muted">#020</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 21 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_021_mergesplit_intersection_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 21 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_021_mergesplit_intersection_gen_seed_5.png" alt="LivingLab scene 21">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 21 · Merge/Split · Intersection</div>
+              <div class="muted">#021</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 22 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_022_mergesplit_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 22 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_022_mergesplit_gen_seed_13.png" alt="LivingLab scene 22">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 22 · Merge/Split</div>
+              <div class="muted">#022</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 23 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_023_mergesplit_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 23 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_023_mergesplit_gen_seed_11.png" alt="LivingLab scene 23">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 23 · Merge/Split</div>
+              <div class="muted">#023</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 24 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_024_mergesplit_intersection_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 24 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_024_mergesplit_intersection_gen_seed_11.png" alt="LivingLab scene 24">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 24 · Merge/Split · Intersection</div>
+              <div class="muted">#024</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 25 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_025_mergesplit_intersection_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 25 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_025_mergesplit_intersection_gen_seed_13.png" alt="LivingLab scene 25">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 25 · Merge/Split · Intersection</div>
+              <div class="muted">#025</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 26 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_026_mergesplit_intersection_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 26 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_026_mergesplit_intersection_gen_seed_13.png" alt="LivingLab scene 26">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 26 · Merge/Split · Intersection</div>
+              <div class="muted">#026</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 27 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_027_mergesplit_intersection_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 27 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_027_mergesplit_intersection_gen_seed_5.png" alt="LivingLab scene 27">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 27 · Merge/Split · Intersection</div>
+              <div class="muted">#027</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 28 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_028_intersection_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 28 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_028_intersection_gen_seed_11.png" alt="LivingLab scene 28">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 28 · Intersection</div>
+              <div class="muted">#028</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 29 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_029_intersection_denoise_seed_42.gif"
+                data-gif-caption="LivingLab · Scene 29 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_029_intersection_gen_seed_42.png" alt="LivingLab scene 29">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 29 · Intersection</div>
+              <div class="muted">#029</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 30 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_030_intersection_denoise_seed_2718.gif"
+                data-gif-caption="LivingLab · Scene 30 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_030_intersection_gen_seed_2718.png" alt="LivingLab scene 30">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 30 · Intersection</div>
+              <div class="muted">#030</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 31 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_031_intersection_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 31 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_031_intersection_gen_seed_11.png" alt="LivingLab scene 31">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 31 · Intersection</div>
+              <div class="muted">#031</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 32 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_032_intersection_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 32 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_032_intersection_gen_seed_13.png" alt="LivingLab scene 32">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 32 · Intersection</div>
+              <div class="muted">#032</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 33 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_033_intersection_denoise_seed_999.gif"
+                data-gif-caption="LivingLab · Scene 33 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_033_intersection_gen_seed_999.png" alt="LivingLab scene 33">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 33 · Intersection</div>
+              <div class="muted">#033</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 34 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_034_intersection_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 34 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_034_intersection_gen_seed_11.png" alt="LivingLab scene 34">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 34 · Intersection</div>
+              <div class="muted">#034</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 35 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization roundabout"
+                data-gif="assets/gifs/livinglab/map_cache_035_roundabout_denoise_seed_357.gif"
+                data-gif-caption="LivingLab · Scene 35 · Roundabout">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_035_roundabout_gen_seed_357.png" alt="LivingLab scene 35">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 35 · Roundabout</div>
+              <div class="muted">#035</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Roundabout</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Roundabout — agents initialized around a circular intersection with correct lane assignments.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 36 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization roundabout"
+                data-gif="assets/gifs/livinglab/map_cache_036_roundabout_denoise_seed_1234.gif"
+                data-gif-caption="LivingLab · Scene 36 · Roundabout">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_036_roundabout_gen_seed_1234.png" alt="LivingLab scene 36">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 36 · Roundabout</div>
+              <div class="muted">#036</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Roundabout</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Roundabout — agents initialized around a circular intersection with correct lane assignments.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 37 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization roundabout"
+                data-gif="assets/gifs/livinglab/map_cache_037_roundabout_denoise_seed_1234.gif"
+                data-gif-caption="LivingLab · Scene 37 · Roundabout">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_037_roundabout_gen_seed_1234.png" alt="LivingLab scene 37">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 37 · Roundabout</div>
+              <div class="muted">#037</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Roundabout</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Roundabout — agents initialized around a circular intersection with correct lane assignments.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 38 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit intersection"
+                data-gif="assets/gifs/livinglab/map_cache_038_mergesplit_intersection_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 38 · Merge/Split · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_038_mergesplit_intersection_gen_seed_11.png" alt="LivingLab scene 38">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 38 · Merge/Split · Intersection</div>
+              <div class="muted">#038</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections; road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 39 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization mergesplit"
+                data-gif="assets/gifs/livinglab/map_cache_039_mergesplit_denoise_seed_11.gif"
+                data-gif-caption="LivingLab · Scene 39 · Merge/Split">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_039_mergesplit_gen_seed_11.png" alt="LivingLab scene 39">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 39 · Merge/Split</div>
+              <div class="muted">#039</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Merge/Split</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Merge/split junction — agents initialized across merging and diverging lane connections.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 40 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_040_intersection_denoise_seed_27.gif"
+                data-gif-caption="LivingLab · Scene 40 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_040_intersection_gen_seed_27.png" alt="LivingLab scene 40">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 40 · Intersection</div>
+              <div class="muted">#040</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 41 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection"
+                data-gif="assets/gifs/livinglab/map_cache_041_intersection_denoise_seed_27.gif"
+                data-gif-caption="LivingLab · Scene 41 · Intersection">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_041_intersection_gen_seed_27.png" alt="LivingLab scene 41">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 41 · Intersection</div>
+              <div class="muted">#041</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 42 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization straight"
+                data-gif="assets/gifs/livinglab/map_cache_042_straight_denoise_seed_2026.gif"
+                data-gif-caption="LivingLab · Scene 42 · Straight">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_042_straight_gen_seed_2026.png" alt="LivingLab scene 42">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 42 · Straight</div>
+              <div class="muted">#042</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Straight</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Straight road segment — agents placed along straight lanes with valid inter-agent separation.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 43 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization straight"
+                data-gif="assets/gifs/livinglab/map_cache_043_straight_denoise_seed_123.gif"
+                data-gif-caption="LivingLab · Scene 43 · Straight">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_043_straight_gen_seed_123.png" alt="LivingLab scene 43">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 43 · Straight</div>
+              <div class="muted">#043</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Straight</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Straight road segment — agents placed along straight lanes with valid inter-agent separation.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 44 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_044_intersection_traffic_denoise_seed_31415.gif"
+                data-gif-caption="LivingLab · Scene 44 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_044_intersection_traffic_gen_seed_31415.png" alt="LivingLab scene 44">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 44 · Intersection · Traffic Signal</div>
+              <div class="muted">#044</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 45 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_045_intersection_traffic_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 45 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_045_intersection_traffic_gen_seed_5.png" alt="LivingLab scene 45">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 45 · Intersection · Traffic Signal</div>
+              <div class="muted">#045</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 46 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_046_intersection_traffic_denoise_seed_31415.gif"
+                data-gif-caption="LivingLab · Scene 46 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_046_intersection_traffic_gen_seed_31415.png" alt="LivingLab scene 46">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 46 · Intersection · Traffic Signal</div>
+              <div class="muted">#046</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 47 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_047_intersection_traffic_denoise_seed_13.gif"
+                data-gif-caption="LivingLab · Scene 47 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_047_intersection_traffic_gen_seed_13.png" alt="LivingLab scene 47">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 47 · Intersection · Traffic Signal</div>
+              <div class="muted">#047</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 48 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_048_intersection_traffic_denoise_seed_321.gif"
+                data-gif-caption="LivingLab · Scene 48 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_048_intersection_traffic_gen_seed_321.png" alt="LivingLab scene 48">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 48 · Intersection · Traffic Signal</div>
+              <div class="muted">#048</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 49 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_049_intersection_traffic_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 49 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_049_intersection_traffic_gen_seed_5.png" alt="LivingLab scene 49">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 49 · Intersection · Traffic Signal</div>
+              <div class="muted">#049</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 50 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_050_intersection_traffic_denoise_seed_31415.gif"
+                data-gif-caption="LivingLab · Scene 50 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_050_intersection_traffic_gen_seed_31415.png" alt="LivingLab scene 50">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 50 · Intersection · Traffic Signal</div>
+              <div class="muted">#050</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 51 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_051_intersection_traffic_denoise_seed_5.gif"
+                data-gif-caption="LivingLab · Scene 51 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_051_intersection_traffic_gen_seed_5.png" alt="LivingLab scene 51">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 51 · Intersection · Traffic Signal</div>
+              <div class="muted">#051</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
+          </figcaption>
+        </figure>
+
+        <!-- LivingLab 52 -->
+        <figure data-dataset="livinglab" data-tags="livinglab unseen generalization intersection traffic"
+                data-gif="assets/gifs/livinglab/map_cache_052_intersection_traffic_denoise_seed_42.gif"
+                data-gif-caption="LivingLab · Scene 52 · Intersection · Traffic Signal">
+          <div class="gif-thumb">
+            <img loading="lazy" src="assets/gifs/livinglab/map_cache_052_intersection_traffic_gen_seed_42.png" alt="LivingLab scene 52">
+          </div>
+          <figcaption>
+            <div class="cap-top">
+              <div class="cap-title"><b>LivingLab</b> · Scene 52 · Intersection · Traffic Signal</div>
+              <div class="muted">#052</div>
+            </div>
+            <div class="tagrow">
+              <span class="tag">LivingLab</span>
+              <span class="tag">unseen</span>
+              <span class="tag">generalization</span>
+              <span class="tag">Intersection</span>
+              <span class="tag">Traffic Signal</span>
+            </div>
+            <div class="muted">Hwaseong LivingLab map · Road intersection — multi-agent placement at a complex four-way or t-junction; traffic-signal-controlled scenario — agents assigned initial states consistent with signal phases.</div>
           </figcaption>
         </figure>
 
@@ -385,9 +1578,9 @@
         <div class="card">
           <h2>Notes</h2>
           <!-- ====== EDIT: Short interpretation ====== -->
-          <ul class="small">
+          <ul class="mid">
             <li>SFiD-Init produces realistic and largely valid initial scenes under a larger spatial context and higher agent capacity.</li>
-            <li>Safety-shaped loss and fidelity regularizers reduce collision/off-road violations while preserving distributional realism.</li>
+            <li>Safety-shaped loss and fidelity regularizers reduce collision/off-road/ttc<1s violations while preserving distributional realism.</li>
             <li>Generalization to the unseen Hwaseong LivingLab map demonstrates robustness to novel environments.</li>
           </ul>
           <div class="divider"></div>
@@ -421,7 +1614,7 @@
           <pre style="margin:0; padding:14px; border-radius:14px; border:1px solid var(--line); background:#fff; overflow:auto;"><code class="mono">@article{sfidinit2026,
   title   = {Safety- and Fidelity-Regularized Diffusion
              for HD-Map-Conditioned Traffic Scene Initialization},
-  author  = {Author A and Author B and Author C},
+  author  = {Dae Jung Kim and Seulbin Hwang, Jinhan Lee},
   journal = {IEEE Transactions on Intelligent Vehicles},
   year    = {2026}
 }</code></pre>
@@ -450,6 +1643,15 @@
     </div>
   </div>
 
+  <!-- GIF Lightbox Modal -->
+  <div id="gif-modal" role="dialog" aria-modal="true" aria-label="GIF viewer">
+    <div class="modal-box">
+      <button class="modal-close" id="gif-modal-close" aria-label="Close">&times;</button>
+      <img id="gif-modal-img" src="" alt="">
+      <div class="modal-caption" id="gif-modal-caption"></div>
+    </div>
+  </div>
+
   <script>
     // ===== Utilities =====
     const $ = (id) => document.getElementById(id);
@@ -466,8 +1668,8 @@
     }
 
     function applyFilter(){
-      const q = normalize(searchInput.value);
-      const ds = datasetSelect.value;
+      const q = searchInput ? normalize(searchInput.value) : "";
+      const ds = datasetSelect ? datasetSelect.value : "all";
 
       figures.forEach(fig => {
         const figDs = fig.getAttribute("data-dataset") || "";
@@ -482,23 +1684,25 @@
       });
     }
 
-    searchInput.addEventListener("input", applyFilter);
-    datasetSelect.addEventListener("change", applyFilter);
+    if (searchInput)   searchInput.addEventListener("input", applyFilter);
+    if (datasetSelect) datasetSelect.addEventListener("change", applyFilter);
 
-    resetBtn.addEventListener("click", () => {
-      searchInput.value = "";
-      datasetSelect.value = "all";
-      applyFilter();
-    });
+    if (resetBtn) {
+      resetBtn.addEventListener("click", () => {
+        if (searchInput)   searchInput.value = "";
+        if (datasetSelect) datasetSelect.value = "all";
+        applyFilter();
+      });
+    }
 
     // Keyboard shortcut: "/" focuses search
     document.addEventListener("keydown", (e) => {
-      if (e.key === "/" && document.activeElement !== searchInput) {
+      if (e.key === "/" && searchInput && document.activeElement !== searchInput) {
         e.preventDefault();
         searchInput.focus();
       }
       // Escape clears search
-      if (e.key === "Escape" && document.activeElement === searchInput) {
+      if (e.key === "Escape" && searchInput && document.activeElement === searchInput) {
         searchInput.value = "";
         applyFilter();
       }
@@ -509,6 +1713,50 @@
 
     // Initial filter
     applyFilter();
+
+    // ===== GIF Lightbox =====
+    const gifModal    = $("gif-modal");
+    const gifModalImg = $("gif-modal-img");
+    const gifModalCap = $("gif-modal-caption");
+    const gifClose    = $("gif-modal-close");
+
+    function openGifModal(gifSrc, caption) {
+      gifModalImg.src = gifSrc;
+      gifModalImg.alt = caption || "";
+      gifModalCap.textContent = caption || "";
+      gifModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeGifModal() {
+      gifModal.classList.remove("open");
+      gifModalImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    // Delegate click on figures that have data-gif
+    gallery.addEventListener("click", (e) => {
+      const fig = e.target.closest("figure[data-gif]");
+      if (!fig) return;
+      openGifModal(
+        fig.getAttribute("data-gif"),
+        fig.getAttribute("data-gif-caption") || ""
+      );
+    });
+
+    gifClose.addEventListener("click", closeGifModal);
+
+    // Close on backdrop click
+    gifModal.addEventListener("click", (e) => {
+      if (e.target === gifModal) closeGifModal();
+    });
+
+    // Escape key closes modal (override previous keydown)
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && gifModal.classList.contains("open")) {
+        closeGifModal();
+      }
+    });
   </script>
 </body>
 </html>
