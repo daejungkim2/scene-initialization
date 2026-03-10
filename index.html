@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SFiD-Init — Safety- and Fidelity-Regularized Diffusion for HD-Map-Conditioned Traffic Scene Initialization</title>
-  <meta name="description" content="SFiD-Init: a safety- and fidelity-regularized diffusion framework for HD-map-conditioned traffic scene initialization. Generates diverse, realistic, and physically valid multi-agent initial scenes from vectorized HD maps." />
+  <meta name="description" content="Project page for SFiD-Init with a brief overview, architecture summary, quantitative highlights, and qualitative results for HD-map-conditioned traffic scene initialization." />
 
   <style>
     :root{
@@ -170,6 +170,29 @@
       border-radius: 6px;
       color:#333;
     }
+    .preprint-notice{
+      margin:18px 0 0;
+      padding:14px 16px;
+      border:1px solid #ead9a0;
+      background:#fff9e8;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+    }
+    .preprint-notice b{
+      display:block;
+      font-size:12px;
+      margin-bottom:6px;
+      letter-spacing:0.2px;
+    }
+    .preprint-quote{
+      font-size:13px;
+      color:#222;
+    }
+    .preprint-sub{
+      margin-top:6px;
+      font-size:12px;
+      color:var(--muted);
+    }
 
     /* GIF play badge */
     .gif-thumb{
@@ -257,7 +280,7 @@
         <b>SFiD-Init — Project Page</b>
       </div>
       <nav class="nav">
-        <a href="#abstract">Abstract</a>
+        <a href="#abstract">Summary</a>
         <a href="#method">Method</a>
         <a href="#qual">Qualitative</a>
         <a href="#comparison">Comparison</a>
@@ -265,11 +288,17 @@
       </nav>
     </div>
 
+    <div class="preprint-notice" role="note" aria-label="IEEE preprint notice">
+      <b>IEEE preprint notice</b>
+      <div class="preprint-quote">“This work has been submitted to the IEEE for possible publication. Copyright may be transferred without notice, after which this version may no longer be accessible.”</div>
+      <div class="preprint-sub">This page shares a brief project overview and qualitative results for the submitted work while it is under review.</div>
+    </div>
+
     <header>
       <!-- ====== EDIT: Title / Subtitle ====== -->
       <h1>Safety- and Fidelity-Regularized Diffusion for HD-Map-Conditioned Traffic Scene Initialization</h1>
       <p class="subtitle">
-        SFiD-Init: a topology- and geometry-aware diffusion framework that generates diverse, realistic, and physically valid multi-agent initial scenes from vectorized HD maps, with safety-shaped and fidelity-preserving regularization.
+        Project overview and qualitative results for a diffusion model that initializes multi-agent traffic scenes from vectorized HD maps using geometry-aware attention and training-time validity regularization.
       </p>
 
       <!-- ====== EDIT: Authors / Affiliations ====== -->
@@ -281,11 +310,10 @@
 
       <!-- ====== EDIT: Links (paper/code placeholders) ====== -->
       <div class="btns">
-        <a class="btn primary" href="#paper">Paper (TBD)</a>
+        <a class="btn primary" href="#paper">Manuscript Status</a>
         <a class="btn" href="#comparison">Main Table</a>
         <a class="btn" href="#qual">GIF Gallery</a>
-        <!-- If you later add arXiv: replace href and text -->
-        <a class="btn" href="#" onclick="return false;">arXiv (TBD)</a>
+        <a class="btn" href="#paper">DOI / PDF (post-acceptance)</a>
       </div>
     </header>
 
@@ -294,7 +322,7 @@
       <div class="teaser">
         <img src="assets/figs/teaser.png" alt="Overview of SFiD-Init framework for HD-map-conditioned traffic scene initialization">
         <div style="padding:12px 16px 14px; background:#fff; border-top:1px solid var(--line);">
-          <p style="margin:0; font-size:13px; color:var(--muted);">Overview of \emph{SFiD-Init} (Safety- and Fidelity-Regularized Diffusion) for HD-map-conditioned traffic scene initialization. A topology-aware lane-graph Map Encoder and an interaction-aware Agent Encoder provide map/agent embeddings to a diffusion Transformer denoiser, which iteratively refines noisy agent states using inter-agent and agent--map geometric relation biases (IAGE/AMGE). SFiD-Init employs a safety-shaped loss and fidelity regularizers during training to reduce collision/off-road violations while preserving map-consistent scene statistics, yielding realistic and largely valid initial scenes.</p>
+          <p style="margin:0; font-size:13px; color:var(--muted);">SFiD-Init combines lane-graph map reasoning with geometry-aware diffusion denoising to sample plausible multi-agent starting scenes from HD maps. Training-time validity shaping reduces immediate collisions and off-road placements, while fidelity terms help preserve lane-consistent scene structure.</p>
         </div>
       </div>
 
@@ -327,20 +355,18 @@
     </div>
 
     <div class="callout" style="margin-top:14px;">
-      This page provides qualitative visualizations and a concise summary of SFiD-Init aligned with the IEEE T-IV manuscript. Code and model weights are not included at this time.
+      This page presents a brief, non-archival project overview and qualitative visualizations for SFiD-Init. It intentionally avoids hosting the manuscript text or a manuscript-style abstract during review. Code and model weights are not included at this time.
     </div>
 
     <!-- ====== Abstract ====== -->
     <section id="abstract">
-      <h2>Abstract</h2>
+      <h2>Project Summary</h2>
       <div class="card">
         <!-- ====== EDIT: Abstract text ====== -->
         <p>
-          Traffic simulation for autonomous driving requires diverse and physically valid initial scenes, yet large-scale scenario authoring remains labor-intensive.
-          We present SFiD-Init, a safety- and fidelity-regularized diffusion framework for HD-map-conditioned traffic scene initialization.
-          SFiD-Init models initialization as conditional generation of a joint multi-agent state from a vectorized HD map, using a topology-aware lane-graph Map Encoder, an interaction-aware Agent Encoder, and a diffusion Transformer denoiser with inter-agent and agent--map geometric relation biases (IAGE/AMGE).
-          To improve physical validity without drifting from the underlying scene distribution, we regularize diffusion training with a differentiable safety-shaped loss for collision/off-road violations and fidelity regularizers that preserve map--agent semantic consistency (contrastive alignment and masked map reconstruction).
-          Experiments on nuPlan and the Waymo Open Motion Dataset demonstrate that SFiD-Init produces realistic and largely valid initial scenes under a larger spatial context and higher agent capacity, and generalizes to an unseen real-world map (Hwaseong LivingLab).
+          SFiD-Init focuses on the first step of simulation: sampling a realistic multi-agent starting layout from an HD map instead of hand-authoring one.
+          The model combines lane-topology encoding, interaction-aware agent encoding, and geometry-aware diffusion denoising so that sampled vehicles stay aligned with road structure while reducing obviously unusable initial states.
+          Across nuPlan, WOMD, and an unseen real-world map, the resulting scenes remain diverse, lane-consistent, and better suited for downstream rollout and evaluation.
         </p>
       </div>
     </section>
@@ -390,7 +416,7 @@
 
     <!-- ====== Qualitative Results ====== -->
     <section id="qual">
-      <h2>Qualitative Results (Gallery)</h2>
+      <h2>Qualitative Results (Generation)</h2>
 
       <div id="gallery" class="gallery">
         <!-- LivingLab 1 -->
@@ -1594,29 +1620,28 @@
     <!-- ====== Paper ====== -->
     <section id="paper">
       <h2>Paper</h2>
-      <p class="hint">Under review at IEEE Transactions on Intelligent Vehicles (T-IV). Links will be updated upon acceptance.</p>
+      <p class="hint">This page does not host a manuscript PDF while the work is under review. After IEEE disposition, it can be updated with the DOI and the appropriate posted-version information.</p>
 
       <div class="two">
         <div class="card">
           <h2>PDF</h2>
           <p class="small">
-            Paper PDF will be uploaded after acceptance.
+            No manuscript PDF is hosted on this page during review. After acceptance, this section can be updated with the DOI and either the accepted version or the citation-only record.
           </p>
           <div class="btns">
-            <a class="btn" href="#" onclick="return false;">Paper (PDF) — TBD</a>
-            <a class="btn" href="#" onclick="return false;">BibTeX — TBD</a>
+            <a class="btn" href="#" onclick="return false;">PDF — not posted during review</a>
+            <a class="btn" href="#" onclick="return false;">BibTeX — update after acceptance</a>
           </div>
         </div>
 
         <div class="card">
           <h2>Citation</h2>
-          <p class="small muted">Provisional BibTeX — will be updated upon acceptance.</p>
-          <pre style="margin:0; padding:14px; border-radius:14px; border:1px solid var(--line); background:#fff; overflow:auto;"><code class="mono">@article{sfidinit2026,
-  title   = {Safety- and Fidelity-Regularized Diffusion
-             for HD-Map-Conditioned Traffic Scene Initialization},
-  author  = {Dae Jung Kim and Seulbin Hwang, Jinhan Lee},
-  journal = {IEEE Transactions on Intelligent Vehicles},
-  year    = {2026}
+          <p class="small muted">Working citation for project-page reference. Replace this with the final IEEE citation and DOI after acceptance.</p>
+          <pre style="margin:0; padding:14px; border-radius:14px; border:1px solid var(--line); background:#fff; overflow:auto;"><code class="mono">@misc{kim2026sfidinit,
+  title  = {Safety- and Fidelity-Regularized Diffusion for HD-Map-Conditioned Traffic Scene Initialization},
+  author = {Dae Jung Kim and Seulbin Hwang and Jinhan Lee},
+  year   = {2026},
+  note   = {Project page for a manuscript under review at IEEE Transactions on Intelligent Vehicles}
 }</code></pre>
         </div>
       </div>
@@ -1635,7 +1660,7 @@
     <div class="footer">
       <div>
         <span class="muted">Usage:</span>
-        Press <span class="kbd">/</span> to focus search, use the dataset dropdown to filter GIFs.
+        Click any thumbnail to open the corresponding GIF in the lightbox viewer.
       </div>
       <div style="margin-top:6px;">
         © <span id="year"></span> — SFiD-Init: Safety- and Fidelity-Regularized Diffusion for HD-Map-Conditioned Traffic Scene Initialization. All rights reserved.
