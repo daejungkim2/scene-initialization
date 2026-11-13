@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "paper": {
+    "file": "SFiD_Init_r1_clean.pdf",
+    "sha256": "9c375e178772ae2421def0598badb89f4fab941b718e81b81cb52d1f97815e05"
+  },
+  "main_table": {
+    "status": "verified_paper",
+    "source": {
+      "table": "VIII",
+      "pdf_page": 10,
+      "panel": "DDIM-50: three training seeds",
+      "rows_used": [
+        "D",
+        "+Safe",
+        "Full"
+      ],
+      "rows_not_shown": [
+        "Guided D",
+        "Rejection D",
+        "Repair D",
+        "Guided Full",
+        "DDPM-1000 one-seed controls"
+      ],
+      "title": "Training objectives and inference interventions on 12,831 nuPlan scenes with full-scene evaluation"
+    },
+    "protocol": {
+      "dataset": "nuPlan, non-Pittsburgh",
+      "scenes": 12831,
+      "evaluation_extent": "full scene",
+      "sampler": "DDIM",
+      "steps": 50,
+      "sampling_guidance": false,
+      "dataset_detail": "filtered nuPlan test scenes outside Pittsburgh (Las Vegas, Boston, Singapore)",
+      "evaluated_population": "all generated vehicles of each scene, stationary vehicles included",
+      "spatial_scope": "full generated scene (75 m-radius map context), no evaluation crop",
+      "conditioning": "recorded agent counts and types of each scene; no sampling-time guidance, rejection or repair",
+      "sampler_detail": "deterministic DDIM, 50 network evaluations",
+      "training_seeds": [
+        0,
+        1,
+        2
+      ],
+      "generation_seeds_per_model": 1,
+      "training_budget": "approximately 245k optimizer steps per model",
+      "seed_aggregation": "one generation seed per model; mean and sample SD (n - 1) across the three training seeds"
+    },
+    "uncertainty": {
+      "type": "sample_sd",
+      "across": "training seeds",
+      "n": 3,
+      "note": "Sample standard deviation across training seeds; not a confidence interval. A reported 0.0000 is a rounded value, not proof of zero variance."
+    },
+    "metrics": [
+      {
+        "key": "nearest",
+        "label": "Nearest",
+        "unit": "JSD",
+        "direction": "lower",
+        "decimals": 4,
+        "name": "Nearest-agent distance JSD",
+        "definition": "Jensen-Shannon divergence between generated and recorded histograms of the distance to the nearest agent (1 m bins over 0-150 m); dimensionless, unscaled."
+      },
+      {
+        "key": "lateral",
+        "label": "Lateral",
+        "unit": "JSD",
+        "direction": "lower",
+        "decimals": 4,
+        "name": "Lateral deviation JSD",
+        "definition": "Jensen-Shannon divergence of the lateral deviation from the lane (0.1 m bins over 0-4.5 m); dimensionless, unscaled."
+      },
+      {
+        "key": "angular",
+        "label": "Angular",
+        "unit": "JSD",
+        "direction": "lower",
+        "decimals": 4,
+        "name": "Angular deviation JSD",
+        "definition": "Jensen-Shannon divergence of the angular deviation from the lane direction; dimensionless, unscaled."
+      },
+      {
+        "key": "collision",
+        "label": "Collision",
+        "unit": "%",
+        "direction": "lower",
+        "decimals": 2,
+        "name": "Vehicle collision rate",
+        "definition": "Percentage of evaluated vehicles involved in at least one oriented-box intersection; each vehicle counted once; stationary vehicles included."
+      },
+      {
+        "key": "offroad",
+        "label": "Off-road",
+        "unit": "%",
+        "direction": "lower",
+        "decimals": 2,
+        "name": "Lane/heading off-road rate",
+        "definition": "Percentage of evaluated vehicles with no lane polygon that contains the center with a heading difference of at most 30 degrees; stationary vehicles included. Not the official drivable-area membership check."
+      },
+      {
+        "key": "fully_valid",
+        "label": "Fully-valid",
+        "unit": "%",
+        "direction": "higher",
+        "decimals": 1,
+        "name": "Fully-valid scene rate",
+        "definition": "Percentage of scenes with neither a collision nor a lane/heading off-road violation. Not a statement about future motion."
+      }
+    ],
+    "rows": [
+      {
+        "model": "D",
+        "values": {
+          "nearest": {
+            "mean": 0.0245,
+            "sd": 0.0017
+          },
+          "lateral": {
+            "mean": 0.0407,
+            "sd": 0.0013
+          },
+          "angular": {
+            "mean": 0.0018,
+            "sd": 0.0002
+          },
+          "collision": {
+            "mean": 16.62,
+            "sd": 0.86
+          },
+          "offroad": {
+            "mean": 3.0,
+            "sd": 0.13
+          },
+          "fully_valid": {
+            "mean": 29.6,
+            "sd": 1.2
+          }
+        }
+      },
+      {
+        "model": "+Safe",
+        "values": {
+          "nearest": {
+            "mean": 0.0124,
+            "sd": 0.001
+          },
+          "lateral": {
+            "mean": 0.04,
+            "sd": 0.0026
+          },
+          "angular": {
+            "mean": 0.0024,
+            "sd": 0.0
+          },
+          "collision": {
+            "mean": 2.74,
+            "sd": 0.55
+          },
+          "offroad": {
+            "mean": 3.79,
+            "sd": 0.07
+          },
+          "fully_valid": {
+            "mean": 52.0,
+            "sd": 1.1
+          }
+        }
+      },
+      {
+        "model": "Full",
+        "values": {
+          "nearest": {
+            "mean": 0.0111,
+            "sd": 0.0022
+          },
+          "lateral": {
+            "mean": 0.0352,
+            "sd": 0.0026
+          },
+          "angular": {
+            "mean": 0.0021,
+            "sd": 0.0007
+          },
+          "collision": {
+            "mean": 2.57,
+            "sd": 0.55
+          },
+          "offroad": {
+            "mean": 3.27,
+            "sd": 0.24
+          },
+          "fully_valid": {
+            "mean": 55.9,
+            "sd": 1.1
+          }
+        }
+      }
+    ],
+    "notes": [
+      "JSD values are unscaled and dimensionless; percentages are percentage values, not fractions.",
+      "Effects are metric-dependent: not every validity or fidelity metric improves.",
+      "Do not pool these rows with the one-seed DDPM-1000 controls or with the guided / rejection / repair rows of Table VIII.",
+      "Full-scene rates must not be compared with the cropped +/-32 m rates of Table IX as if only the city changed."
+    ]
+  },
+  "optional_table": {
+    "status": "verified_paper",
+    "enabled": true,
+    "source": {
+      "table": "IX",
+      "pdf_page": 11,
+      "title": "Generalization to held-out Pittsburgh: 5,622 scenes, +/-32 m, DDPM-1000",
+      "rows_used": [
+        "SD-L",
+        "D",
+        "Full"
+      ],
+      "columns_not_shown": [
+        "Length JSD",
+        "Width JSD",
+        "Speed JSD",
+        "TTC JSD",
+        "Non-Pittsburgh fully-valid"
+      ]
+    },
+    "protocol": {
+      "dataset": "held-out Pittsburgh",
+      "scenes": 5622,
+      "evaluation_extent": "x/y within ±32 m",
+      "sampler": "DDPM",
+      "steps": 1000,
+      "sampling_guidance": false,
+      "dataset_detail": "all Pittsburgh scenes of the filtered nuPlan test set",
+      "held_out_status": "Pittsburgh is excluded from SFiD (D, Full) training, validation and normalization; the released SD-L checkpoint was trained with Pittsburgh included",
+      "evaluated_population": "vehicles whose center lies inside the window; stationary vehicles included",
+      "spatial_scope": "ego-centered square |x|, |y| <= 32 m, applied after generation with the 75 m-radius map context",
+      "conditioning": "D / Full: recorded agent counts and types fixed before cropping; SD-L keeps its own count/type handling and generation interface",
+      "sampler_detail": "ancestral DDPM, 1000 steps (D, Full); SD-L uses its released sampler",
+      "training_seeds": [
+        0,
+        1,
+        2
+      ],
+      "generation_seeds": [
+        1234,
+        1235,
+        1236
+      ],
+      "seed_aggregation": "D / Full: average the three generation seeds within each training seed, then mean and sample SD (n - 1) across the three training seeds; SD-L: one run of the released checkpoint"
+    },
+    "uncertainty": {
+      "type": "sample_sd",
+      "across": "training seeds",
+      "n": 3,
+      "generation_seeds_per_training_seed": 3,
+      "note": "Sample standard deviation across training seeds after averaging three generation seeds per training seed; not a confidence interval. No SD is reported for SD-L (single run)."
+    },
+    "metrics": [
+      {
+        "key": "nearest",
+        "label": "Nearest",
+        "unit": "JSD",
+        "direction": "lower",
+        "decimals": 4,
+        "name": "Nearest-agent distance JSD",
+        "definition": "Jensen-Shannon divergence between generated and recorded histograms of the distance to the nearest agent (1 m bins over 0-150 m); dimensionless, unscaled."
+      },
+      {
+        "key": "lateral",
+        "label": "Lateral",
+        "unit": "JSD",
+        "direction": "lower",
+        "decimals": 4,
+        "name": "Lateral deviation JSD",
+        "definition": "Jensen-Shannon divergence of the lateral deviation from the lane (0.1 m bins over 0-4.5 m); dimensionless, unscaled."
+      },
+      {
+        "key": "angular",
+        "label": "Angular",
+        "unit": "JSD",
+        "direction": "lower",
+        "decimals": 4,
+        "name": "Angular deviation JSD",
+        "definition": "Jensen-Shannon divergence of the angular deviation from the lane direction; dimensionless, unscaled."
+      },
+      {
+        "key": "collision",
+        "label": "Collision",
+        "unit": "%",
+        "direction": "lower",
+        "decimals": 2,
+        "name": "Vehicle collision rate",
+        "definition": "Percentage of evaluated vehicles involved in at least one oriented-box intersection; each vehicle counted once; stationary vehicles included."
+      },
+      {
+        "key": "offroad",
+        "label": "Off-road",
+        "unit": "%",
+        "direction": "lower",
+        "decimals": 2,
+        "name": "Lane/heading off-road rate",
+        "definition": "Percentage of evaluated vehicles with no lane polygon that contains the center with a heading difference of at most 30 degrees; stationary vehicles included. Not the official drivable-area membership check."
+      },
+      {
+        "key": "fully_valid",
+        "label": "Fully-valid",
+        "unit": "%",
+        "direction": "higher",
+        "decimals": 1,
+        "name": "Fully-valid scene rate",
+        "definition": "Percentage of scenes with neither a collision nor a lane/heading off-road violation. Not a statement about future motion."
+      }
+    ],
+    "rows": [
+      {
+        "model": "D",
+        "values": {
+          "nearest": {
+            "mean": 0.0097,
+            "sd": 0.0005
+          },
+          "lateral": {
+            "mean": 0.0266,
+            "sd": 0.0032
+          },
+          "angular": {
+            "mean": 0.0151,
+            "sd": 0.0028
+          },
+          "collision": {
+            "mean": 6.12,
+            "sd": 1.26
+          },
+          "offroad": {
+            "mean": 5.15,
+            "sd": 1.05
+          },
+          "fully_valid": {
+            "mean": 61.6,
+            "sd": 4.4
+          }
+        }
+      },
+      {
+        "model": "Full",
+        "values": {
+          "nearest": {
+            "mean": 0.0097,
+            "sd": 0.0012
+          },
+          "lateral": {
+            "mean": 0.0277,
+            "sd": 0.0025
+          },
+          "angular": {
+            "mean": 0.0159,
+            "sd": 0.0021
+          },
+          "collision": {
+            "mean": 5.34,
+            "sd": 0.55
+          },
+          "offroad": {
+            "mean": 4.37,
+            "sd": 0.54
+          },
+          "fully_valid": {
+            "mean": 65.6,
+            "sd": 1.5
+          }
+        }
+      }
+    ],
+    "validity_metric_keys": [
+      "collision",
+      "offroad",
+      "fully_valid"
+    ],
+    "reference_rows": [
+      {
+        "model": "SD-L",
+        "model_name": "Scenario Dreamer-L (released checkpoint)",
+        "n_runs": 1,
+        "uncertainty": null,
+        "values": {
+          "nearest": {
+            "mean": 0.0471,
+            "sd": null
+          },
+          "lateral": {
+            "mean": 0.0846,
+            "sd": null
+          },
+          "angular": {
+            "mean": 0.111,
+            "sd": null
+          },
+          "collision": {
+            "mean": 24.06,
+            "sd": null
+          },
+          "offroad": {
+            "mean": 32.98,
+            "sd": null
+          },
+          "fully_valid": {
+            "mean": 19.1,
+            "sd": null
+          }
+        },
+        "note": "Single evaluation of the released checkpoint; no SD is reported and none must be substituted. Pittsburgh was part of the SD-L training data, so this row is not a held-out result for SD-L."
+      }
+    ],
+    "notes": [
+      "Protocol differs from the main table (cropped +/-32 m window and DDPM-1000 instead of full scene and DDIM-50); the two tables are not directly comparable.",
+      "Table X of the manuscript (full-scene DDIM-50 on Pittsburgh) is a different protocol and is not merged here.",
+      "The three displayed JSDs do not all decrease from D to Full."
+    ]
+  },
+  "rollout": {
+    "status": "verified_paper",
+    "source": {
+      "table": "XI",
+      "pdf_page": 11,
+      "title": "Eight-second rollouts on 500 Pittsburgh scenes using the same Flow-ERD model",
+      "column": "Eight-second rollout: Vehicle collision (%)",
+      "text_pdf_pages": [
+        11,
+        12
+      ]
+    },
+    "protocol": {
+      "dataset": "Pittsburgh",
+      "scenes": 500,
+      "simulation_seconds": 8,
+      "behavior_model": "Flow-ERD",
+      "behavior_checkpoint": "identical across initialization variants",
+      "metric_population": "non-ego vehicles",
+      "aggregation": "unique vehicles colliding with another non-ego vehicle at least once over 8 seconds; average per-scene rates over eligible scenes, then across training seeds",
+      "dataset_detail": "500 Pittsburgh scenes sampled from the held-out Pittsburgh evaluation set",
+      "initial_states": "initializer output of each scene (generation seed 1234) cropped to non-ego vehicles within the +/-32 m window; the recorded ego initial state is shared by all initializers",
+      "simulation": "sixteen consecutive 0.5 s blocks with state feedback, 10 Hz trajectory output; all agents including the ego advance",
+      "behavior_seed": "one behavior-model sampling seed per scene, identical for every initializer",
+      "training_seeds": [
+        0,
+        1,
+        2
+      ],
+      "generation_seeds_per_model": 1,
+      "eligible_scenes": {
+        "D": [
+          496,
+          496,
+          493
+        ],
+        "Full": [
+          497,
+          494,
+          494
+        ]
+      },
+      "seed_aggregation": "per-scene vehicle fraction averaged equally over eligible (non-empty) scenes, then mean and sample SD (n - 1) across the three initializer training seeds"
+    },
+    "uncertainty": {
+      "type": "sample_sd",
+      "across": "training seeds",
+      "n": 3,
+      "note": "Sample standard deviation across initializer training seeds; not a confidence interval. No SD is reported for Real and SD-L (single runs)."
+    },
+    "models": [
+      {
+        "model": "D",
+        "vehicle_collision": {
+          "mean": 7.49,
+          "sd": 1.46
+        }
+      },
+      {
+        "model": "Full",
+        "vehicle_collision": {
+          "mean": 5.96,
+          "sd": 0.71
+        }
+      }
+    ],
+    "metric": {
+      "key": "vehicle_collision",
+      "unit": "%",
+      "direction": "lower",
+      "decimals": 2,
+      "label": "Eight-second vehicle collision",
+      "name": "Eight-second rollout vehicle collision rate",
+      "definition": "Distinct non-ego vehicles whose box overlaps another non-ego vehicle box at least once during the eight-second rollout, divided by the non-ego vehicle count of the scene, averaged equally over eligible scenes; a vehicle is counted once; initially overlapping vehicles are included if they also overlap during the rollout."
+    },
+    "reference_models": [
+      {
+        "model": "Real",
+        "model_name": "Recorded initial layout",
+        "n_runs": 1,
+        "vehicle_collision": {
+          "mean": 1.21,
+          "sd": null
+        },
+        "eligible_scenes": 480,
+        "note": "Single run started from the recorded layout of each scene; no SD is reported and none must be substituted."
+      },
+      {
+        "model": "SD-L",
+        "model_name": "Scenario Dreamer-L (released checkpoint)",
+        "n_runs": 1,
+        "vehicle_collision": {
+          "mean": 22.14,
+          "sd": null
+        },
+        "eligible_scenes": 474,
+        "note": "Single run of the released checkpoint; no SD is reported and none must be substituted. Pittsburgh was part of the SD-L training data, so this row is not a held-out result for SD-L."
+      }
+    ],
+    "notes": [
+      "The metric concerns non-ego vehicles only.",
+      "Table XI separately reports initial collision-scene rates (scenes with any initial overlap divided by all 500 scenes): a different metric with a different denominator, not interchangeable with this vehicle collision rate.",
+      "Initialization is one contributor to rollout validity; the behavior model also matters, and Real-initialized rollouts also show non-zero collisions."
+    ]
+  },
+  "verification": {
+    "status": "verified against the manuscript and the original evaluation outputs",
+    "date": "2026-11-13",
+    "manuscript_cells_checked": {
+      "table_VIII": 18,
+      "table_IX_D_Full": 12,
+      "table_IX_SD-L": 6,
+      "table_XI_vehicle_collision": 2,
+      "table_XI_vehicle_collision_reference_models": 2
+    },
+    "scope_note": "Counts refer to the cells contained in this file. The underlying cross-check covered all 8 cells of Table XI (Real, SD-L, D, Full x initial collision scenes, vehicle collision).",
+    "method": "mean and sample SD recomputed from the per-run metric files of the original evaluation and compared at the manuscript precision; values also located in the PDF text layer"
+  }
+}

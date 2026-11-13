@@ -1,0 +1,885 @@
+{
+  "schema_version": 1,
+  "paper_version": "SFiD_Init_r1_clean.pdf",
+  "assets": [
+    {
+      "id": "initial_compare_01",
+      "path": "assets/figs/compare/initial_compare_01.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (Pittsburgh, held out for SFiD-Init; ±32 m vehicle-only window; D / Full DDPM-1000, SD-L one run); one scene of the 5,622-scene evaluation",
+      "scene_id": "2021.09.16.17.40.35_veh-08_00032_01780=2255ea8bc7f45f6c_pittsburgh_t138",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "SD-L",
+        "D",
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SD-L-public",
+        "SFiD-D-245k-s0",
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": {
+        "D": [
+          1234
+        ],
+        "Full": [
+          1234
+        ],
+        "SD-L": null
+      },
+      "sampler": "DDPM (D, Full); SD-L: sampler of its public release (seed and step count not in the stored record of this run)",
+      "steps": {
+        "D": 1000,
+        "Full": 1000,
+        "SD-L": null
+      },
+      "display_extent_m": {
+        "x": [
+          -36.0,
+          36.0
+        ],
+        "y": [
+          -36.0,
+          36.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Example 01 · Recorded / SD-L / D / Full.",
+      "alt_text": "Selected Pittsburgh initializations: recorded traffic, SD-L, D and Full; oriented boxes show vehicle positions and headings.",
+      "validation": {
+        "status": "verified",
+        "sha256": "e3ba9234349351eadd92c828aeade664997fb3ed2402038ee1f304e0fa4eb211"
+      }
+    },
+    {
+      "id": "initial_compare_02",
+      "path": "assets/figs/compare/initial_compare_02.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (Pittsburgh, held out for SFiD-Init; ±32 m vehicle-only window; D / Full DDPM-1000, SD-L one run); one scene of the 5,622-scene evaluation",
+      "scene_id": "2021.09.16.20.43.47_veh-08_00783_01358=e55d8434dd7156b7_pittsburgh_t176",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "SD-L",
+        "D",
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SD-L-public",
+        "SFiD-D-245k-s0",
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": {
+        "D": [
+          1234
+        ],
+        "Full": [
+          1234
+        ],
+        "SD-L": null
+      },
+      "sampler": "DDPM (D, Full); SD-L: sampler of its public release (seed and step count not in the stored record of this run)",
+      "steps": {
+        "D": 1000,
+        "Full": 1000,
+        "SD-L": null
+      },
+      "display_extent_m": {
+        "x": [
+          -36.0,
+          36.0
+        ],
+        "y": [
+          -36.0,
+          36.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Example 02 · Recorded / SD-L / D / Full.",
+      "alt_text": "Selected Pittsburgh initializations: recorded traffic, SD-L, D and Full; oriented boxes show vehicle positions and headings.",
+      "validation": {
+        "status": "verified",
+        "sha256": "de060089b3c5faabbf2e650d85b138857b0cdf5bb1574d91dc97983871b6f4ac"
+      }
+    },
+    {
+      "id": "initial_compare_03",
+      "path": "assets/figs/compare/initial_compare_03.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (Pittsburgh, held out for SFiD-Init; ±32 m vehicle-only window; D / Full DDPM-1000, SD-L one run); one scene of the 5,622-scene evaluation",
+      "scene_id": "2021.09.16.19.47.47_veh-08_02366_03150=ee90060117215ef5_pittsburgh_t261",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "SD-L",
+        "D",
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SD-L-public",
+        "SFiD-D-245k-s0",
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": {
+        "D": [
+          1234
+        ],
+        "Full": [
+          1234
+        ],
+        "SD-L": null
+      },
+      "sampler": "DDPM (D, Full); SD-L: sampler of its public release (seed and step count not in the stored record of this run)",
+      "steps": {
+        "D": 1000,
+        "Full": 1000,
+        "SD-L": null
+      },
+      "display_extent_m": {
+        "x": [
+          -36.0,
+          36.0
+        ],
+        "y": [
+          -36.0,
+          36.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Example 03 · Recorded / SD-L / D / Full.",
+      "alt_text": "Selected Pittsburgh initializations: recorded traffic, SD-L, D and Full; oriented boxes show vehicle positions and headings.",
+      "validation": {
+        "status": "verified",
+        "sha256": "64336e774ad06a5d6a1f0540bae9c86e50f360b62127201d42837543ff2c53c9"
+      }
+    },
+    {
+      "id": "rollout_compare_01",
+      "path": "assets/media/rollout_compare_01.mp4",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table XI and Sec. V-F (one scene of the 500-scene Pittsburgh rollout study; rows D and Full; SFiD-Init training seed 0)",
+      "scene_id": "2021.08.16.17.03.12_veh-08_02329_02601=72401d05879b536f_pittsburgh_t96",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "D",
+        "Full",
+        "Flow-ERD"
+      ],
+      "checkpoint_ids": [
+        "SFiD-D-245k-s0",
+        "SFiD-Full-245k-s0",
+        "Flow-ERD-shared"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        1234
+      ],
+      "sampler": "DDPM (D and Full initial layouts) + Flow-ERD (rollout)",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -32.0,
+          98.0
+        ],
+        "y": [
+          -67.0,
+          63.0
+        ]
+      },
+      "evaluation_extent_m": "no spatial bound during the rollout; non-ego vehicles only",
+      "time": {
+        "simulation_seconds": 8.0,
+        "encoded_seconds": 10.0
+      },
+      "caption": "Selected D / Full rollout.",
+      "alt_text": "Selected paired rollout from D and Full initializations using the same Flow-ERD model.",
+      "validation": {
+        "status": "verified",
+        "sha256": "cf78aa6c255f1e444951eef9652973623685ded1543308ed004877178e5aa268",
+        "poster_sha256": "a808357d6fcf00ee687b9482682185c76790fb2998fa29a66fd04ee7194a0d8d"
+      }
+    },
+    {
+      "id": "rollout_compare_02",
+      "path": "assets/media/rollout_compare_02.mp4",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table XI and Sec. V-F (one scene of the 500-scene Pittsburgh rollout study; rows Real and Full; SFiD-Init training seed 0)",
+      "scene_id": "2021.09.16.19.27.01_veh-45_00988_01156=d392bf5eef175888_pittsburgh_t203",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full",
+        "Flow-ERD"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0",
+        "Flow-ERD-shared"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": {
+        "Full": [
+          1234
+        ]
+      },
+      "sampler": "recorded layout (left); DDPM (Full initial layout); Flow-ERD (rollout)",
+      "steps": {
+        "Full": 1000
+      },
+      "display_extent_m": {
+        "x": [
+          -64.0,
+          56.0
+        ],
+        "y": [
+          -59.0,
+          61.0
+        ]
+      },
+      "evaluation_extent_m": "no spatial bound during the rollout; non-ego vehicles only",
+      "time": {
+        "simulation_seconds": 8.0,
+        "encoded_seconds": 10.0
+      },
+      "caption": "Selected Recorded / Full rollout. Recorded uses observed initial states, not future-trajectory replay.",
+      "alt_text": "Selected paired rollout from recorded and Full initial states using the same Flow-ERD model.",
+      "validation": {
+        "status": "verified",
+        "sha256": "64c46fbf8a44b369b14222f6a1276a6d77dee3cd1e594b8095c4c4d4972b37ca",
+        "poster_sha256": "e8d591a32836b523a6b1d59e9118fc2bd31f3eb31ae4f667566faa318283e898"
+      }
+    },
+    {
+      "id": "rollout_compare_03",
+      "path": "assets/media/rollout_compare_03.mp4",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table XI and Sec. V-F (one scene of the 500-scene Pittsburgh rollout study; rows SD-L and Full; SFiD-Init training seed 0)",
+      "scene_id": "2021.09.16.17.40.09_veh-45_00374_00876=0405cdfe131f5f33_pittsburgh_t72",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "SD-L",
+        "Full",
+        "Flow-ERD"
+      ],
+      "checkpoint_ids": [
+        "SD-L-public",
+        "SFiD-Full-245k-s0",
+        "Flow-ERD-shared"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": {
+        "SD-L": [
+          0
+        ],
+        "Full": [
+          1234
+        ]
+      },
+      "sampler": "SD-L released sampler (SD-L initial layout); DDPM (Full initial layout); Flow-ERD (rollout)",
+      "steps": {
+        "SD-L": 100,
+        "Full": 1000
+      },
+      "display_extent_m": {
+        "x": [
+          -43.0,
+          57.0
+        ],
+        "y": [
+          -48.0,
+          52.0
+        ]
+      },
+      "evaluation_extent_m": "no spatial bound during the rollout; non-ego vehicles only",
+      "time": {
+        "simulation_seconds": 8.0,
+        "encoded_seconds": 10.0
+      },
+      "caption": "Selected SD-L / Full rollout.",
+      "alt_text": "Selected paired rollout from SD-L and Full initializations using the same Flow-ERD model.",
+      "validation": {
+        "status": "verified",
+        "sha256": "e2a2602fd64ee1eb96d2ddecc854dea27621dad44836754ab9fb4a510bb8f13c",
+        "poster_sha256": "c33273a06970eb61ae5f699e1db9adc437b04682593813bb4e1e7a8e579de3d6"
+      }
+    },
+    {
+      "id": "pittsburgh_failure",
+      "path": "assets/figs/pittsburgh/pittsburgh_failure.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (held-out Pittsburgh, DDPM-1000); scene of Fig. 3 (d) fail_both_10; the generation-seed-1234 sample is the one shown in Fig. 3",
+      "scene_id": "2021.09.16.20.23.58_veh-45_00054_00389=3439c338cc935d64_pittsburgh_t294",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        1234
+      ],
+      "sampler": "DDPM",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -75.0,
+          75.0
+        ],
+        "y": [
+          -75.0,
+          75.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Failure example · Full.",
+      "alt_text": "Selected Pittsburgh failure example with an enlarged region showing overlaps and off-road placements.",
+      "validation": {
+        "status": "verified",
+        "sha256": "58e7b166bc332773a7e5956c75ff5832216af8d26c3353c5b16d9cb82cd81dff"
+      }
+    },
+    {
+      "id": "pittsburgh_map01_sample01",
+      "path": "assets/figs/pittsburgh/pittsburgh_map01_sample01.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (held-out Pittsburgh, DDPM-1000); scene of Fig. 3 (a) success_01; the generation-seed-1234 sample is the one shown in Fig. 3",
+      "scene_id": "2021.08.16.17.03.12_veh-08_00641_01035=470a86cd86d15498_pittsburgh_t249",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        1234
+      ],
+      "sampler": "DDPM",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -75.0,
+          75.0
+        ],
+        "y": [
+          -75.0,
+          75.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Map 01 · generation seed 1234.",
+      "alt_text": "Full initialization on Pittsburgh map 01, generation seed 1234; colors indicate geometric validity checks.",
+      "validation": {
+        "status": "verified",
+        "sha256": "50300fbb2ad8b82331a85e418f7f75c84b28dc4fb8462c27603708babab90389"
+      }
+    },
+    {
+      "id": "pittsburgh_map01_sample02",
+      "path": "assets/figs/pittsburgh/pittsburgh_map01_sample02.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (held-out Pittsburgh, DDPM-1000); scene of Fig. 3 (a) success_01; NOT a sample of the Table IX evaluation: same model and sampler, generated for this scene alone with an additional generation seed and selected on its outcome",
+      "scene_id": "2021.08.16.17.03.12_veh-08_00641_01035=470a86cd86d15498_pittsburgh_t249",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        403959
+      ],
+      "sampler": "DDPM",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -75.0,
+          75.0
+        ],
+        "y": [
+          -75.0,
+          75.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Map 01 · generation seed 403959.",
+      "alt_text": "Full initialization on Pittsburgh map 01, generation seed 403959; colors indicate geometric validity checks.",
+      "validation": {
+        "status": "verified",
+        "sha256": "0fd84296d7138b1aafebff524b5edefc1f2a22b3f8266fae067db1a3ba7a9b1d"
+      }
+    },
+    {
+      "id": "pittsburgh_map01_sample03",
+      "path": "assets/figs/pittsburgh/pittsburgh_map01_sample03.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (held-out Pittsburgh, DDPM-1000); scene of Fig. 3 (a) success_01; NOT a sample of the Table IX evaluation: same model and sampler, generated for this scene alone with an additional generation seed and selected on its outcome",
+      "scene_id": "2021.08.16.17.03.12_veh-08_00641_01035=470a86cd86d15498_pittsburgh_t249",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        885441
+      ],
+      "sampler": "DDPM",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -75.0,
+          75.0
+        ],
+        "y": [
+          -75.0,
+          75.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Map 01 · generation seed 885441.",
+      "alt_text": "Full initialization on Pittsburgh map 01, generation seed 885441; colors indicate geometric validity checks.",
+      "validation": {
+        "status": "verified",
+        "sha256": "ab9b8c5e4d33f9e8b7fc3c350c2f5b3a6e849b56c06c321020c859a59c14064c"
+      }
+    },
+    {
+      "id": "pittsburgh_map02_sample01",
+      "path": "assets/figs/pittsburgh/pittsburgh_map02_sample01.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (held-out Pittsburgh, DDPM-1000); scene of Fig. 3 (b) success_07; the generation-seed-1234 sample is the one shown in Fig. 3",
+      "scene_id": "2021.09.16.19.49.00_veh-42_00990_01609=3efc251f0c5a59fe_pittsburgh_t395",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        1234
+      ],
+      "sampler": "DDPM",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -75.0,
+          75.0
+        ],
+        "y": [
+          -75.0,
+          75.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Map 02 · generation seed 1234.",
+      "alt_text": "Full initialization on Pittsburgh map 02, generation seed 1234; colors indicate geometric validity checks.",
+      "validation": {
+        "status": "verified",
+        "sha256": "82897fd688fa4086579ca6366bc599ab19ebb03f1e7879e05df12180dc564aa1"
+      }
+    },
+    {
+      "id": "pittsburgh_map02_sample02",
+      "path": "assets/figs/pittsburgh/pittsburgh_map02_sample02.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (held-out Pittsburgh, DDPM-1000); scene of Fig. 3 (b) success_07; NOT a sample of the Table IX evaluation: same model and sampler, generated for this scene alone with an additional generation seed and selected on its outcome",
+      "scene_id": "2021.09.16.19.49.00_veh-42_00990_01609=3efc251f0c5a59fe_pittsburgh_t395",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        441002
+      ],
+      "sampler": "DDPM",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -75.0,
+          75.0
+        ],
+        "y": [
+          -75.0,
+          75.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Map 02 · generation seed 441002.",
+      "alt_text": "Full initialization on Pittsburgh map 02, generation seed 441002; colors indicate geometric validity checks.",
+      "validation": {
+        "status": "verified",
+        "sha256": "5a1875e4bb9847909662da745b61385579a94432ba2e8a54beb25df4286d1eaa"
+      }
+    },
+    {
+      "id": "pittsburgh_map02_sample03",
+      "path": "assets/figs/pittsburgh/pittsburgh_map02_sample03.png",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Table IX protocol (held-out Pittsburgh, DDPM-1000); scene of Fig. 3 (b) success_07; NOT a sample of the Table IX evaluation: same model and sampler, generated for this scene alone with an additional generation seed and selected on its outcome",
+      "scene_id": "2021.09.16.19.49.00_veh-42_00990_01609=3efc251f0c5a59fe_pittsburgh_t395",
+      "map_id": "us-pa-pittsburgh-hazelwood",
+      "model_ids": [
+        "Full"
+      ],
+      "checkpoint_ids": [
+        "SFiD-Full-245k-s0"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": [
+        885441
+      ],
+      "sampler": "DDPM",
+      "steps": 1000,
+      "display_extent_m": {
+        "x": [
+          -75.0,
+          75.0
+        ],
+        "y": [
+          -75.0,
+          75.0
+        ]
+      },
+      "evaluation_extent_m": {
+        "x": [
+          -32.0,
+          32.0
+        ],
+        "y": [
+          -32.0,
+          32.0
+        ],
+        "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+      },
+      "time": null,
+      "caption": "Map 02 · generation seed 885441.",
+      "alt_text": "Full initialization on Pittsburgh map 02, generation seed 885441; colors indicate geometric validity checks.",
+      "validation": {
+        "status": "verified",
+        "sha256": "e5f6591c64ed60221dc0b985c5a7c91fcfe5d5ede1a8003210ab05f0516d7424"
+      }
+    },
+    {
+      "id": "teaser",
+      "path": "assets/media/teaser.mp4",
+      "paper_version": "SFiD_Init_r1_clean.pdf",
+      "paper_reference": "Selected initialization and rollout examples, including additional Pittsburgh generations outside the Table IX evaluation; aggregate results use the separate paper protocols.",
+      "scene_id": [
+        "2021.09.29.18.19.40_veh-28_01918_02050=ec01dae45e1f5912_boston_t336",
+        "2021.09.16.17.40.35_veh-08_00032_01780=2255ea8bc7f45f6c_pittsburgh_t138",
+        "2021.08.16.17.03.12_veh-08_00641_01035=470a86cd86d15498_pittsburgh_t249",
+        "2021.08.16.17.03.12_veh-08_02329_02601=72401d05879b536f_pittsburgh_t96"
+      ],
+      "map_id": [
+        "us-ma-boston",
+        "us-pa-pittsburgh-hazelwood"
+      ],
+      "model_ids": [
+        "D",
+        "Full",
+        "SD-L",
+        "Flow-ERD"
+      ],
+      "checkpoint_ids": [
+        "SFiD-D-245k-s0",
+        "SFiD-Full-245k-s0",
+        "SD-L-public",
+        "Flow-ERD-shared"
+      ],
+      "training_seeds": [
+        0
+      ],
+      "generation_seeds": {
+        "title": [
+          1234
+        ],
+        "initial_compare_01": {
+          "D": [
+            1234
+          ],
+          "Full": [
+            1234
+          ],
+          "SD-L": null
+        },
+        "pittsburgh_map01": [
+          1234,
+          403959,
+          885441
+        ],
+        "rollout_compare_01": [
+          1234
+        ]
+      },
+      "sampler": {
+        "title": "unguided DDIM",
+        "initial_compare_01": "DDPM (D, Full); SD-L: sampler of its public release (seed and step count not in the stored record of this run)",
+        "pittsburgh_map01": "unguided DDPM",
+        "rollout_compare_01": "DDPM (D and Full initial layouts) + Flow-ERD (rollout)"
+      },
+      "steps": {
+        "title": 50,
+        "initial_compare_01": {
+          "D": 1000,
+          "Full": 1000,
+          "SD-L": null
+        },
+        "pittsburgh_map01": 1000,
+        "rollout_compare_01": 1000
+      },
+      "display_extent_m": {
+        "title": {
+          "x": [
+            -65.0,
+            65.0
+          ],
+          "y": [
+            -65.0,
+            65.0
+          ]
+        },
+        "initial_compare_01": {
+          "x": [
+            -36.0,
+            36.0
+          ],
+          "y": [
+            -36.0,
+            36.0
+          ]
+        },
+        "pittsburgh_map01": {
+          "x": [
+            -75.0,
+            75.0
+          ],
+          "y": [
+            -75.0,
+            75.0
+          ]
+        },
+        "rollout_compare_01": {
+          "x": [
+            -32.0,
+            98.0
+          ],
+          "y": [
+            -67.0,
+            63.0
+          ]
+        }
+      },
+      "evaluation_extent_m": {
+        "title": "full scene",
+        "initial_compare_01": {
+          "x": [
+            -32.0,
+            32.0
+          ],
+          "y": [
+            -32.0,
+            32.0
+          ],
+          "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+        },
+        "pittsburgh_map01": {
+          "x": [
+            -32.0,
+            32.0
+          ],
+          "y": [
+            -32.0,
+            32.0
+          ],
+          "rule": "vehicle center inside the square; vehicles only; crop applied before evaluation (Table IX)"
+        },
+        "rollout_compare_01": "no spatial bound during the rollout; non-ego vehicles only"
+      },
+      "time": {
+        "encoded_seconds": 18.0,
+        "fps": 30,
+        "frames": 540,
+        "segments": [
+          {
+            "source_id": "title",
+            "start_s": 0,
+            "end_s": 2
+          },
+          {
+            "source_id": "initial_compare_01",
+            "start_s": 2,
+            "end_s": 7
+          },
+          {
+            "source_id": "pittsburgh_map01",
+            "start_s": 7,
+            "end_s": 10
+          },
+          {
+            "source_id": "rollout_compare_01",
+            "start_s": 10,
+            "end_s": 18
+          }
+        ],
+        "rollout_excerpt": {
+          "simulation_start_s": 0.0,
+          "simulation_last_state_s": 7.9,
+          "playback_rate": 1.0,
+          "source_hz": 10,
+          "interpolation": "none; each stored state is shown for three video frames"
+        }
+      },
+      "caption": "Selected initialization and rollout examples.",
+      "alt_text": "Overview of SFiD-Init scene initialization and Flow-ERD rollout examples.",
+      "validation": {
+        "status": "verified",
+        "sha256": "10264bb591f41d52b27f7d262af9742e98f5830891a3b4003ed322d3f95322f6",
+        "poster_sha256": "38807a41091c79667385783163f4afbc15ad94a317ca6f9b8d84ba09c66fb934",
+        "checks": [
+          "H.264 yuv420p; 1920x1080; 30 fps; 18.000 seconds; 540 frames",
+          "no audio stream; faststart; full decode",
+          "four segment frame checks; scientific content and temporal alignment preserved"
+        ]
+      }
+    }
+  ]
+}

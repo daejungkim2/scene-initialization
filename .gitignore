@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.pyc
+# Private experiment provenance belongs outside this web repository.
+project_page_handoff/
+manifest.private.json
+
+# Local planning, validation and media-production tools.
+/docs/
+/scripts/

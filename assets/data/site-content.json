@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "release_status": "ready",
+  "paper_version": "SFiD_Init_r1_clean.pdf",
+  "assets": {
+    "teaser": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/media/teaser.mp4",
+      "poster": "assets/media/teaser_poster.jpg",
+      "caption": "Selected initialization and rollout examples.",
+      "alt": "Overview of SFiD-Init scene initialization and Flow-ERD rollout examples."
+    },
+    "initial_compare_01": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/compare/initial_compare_01.png",
+      "caption": "Example 01 · Recorded / SD-L / D / Full.",
+      "alt": "Selected Pittsburgh initializations: recorded traffic, SD-L, D and Full; oriented boxes show vehicle positions and headings."
+    },
+    "initial_compare_02": {
+      "status": "verified",
+      "required": false,
+      "src": "assets/figs/compare/initial_compare_02.png",
+      "caption": "Example 02 · Recorded / SD-L / D / Full.",
+      "alt": "Selected Pittsburgh initializations: recorded traffic, SD-L, D and Full; oriented boxes show vehicle positions and headings."
+    },
+    "initial_compare_03": {
+      "status": "verified",
+      "required": false,
+      "src": "assets/figs/compare/initial_compare_03.png",
+      "caption": "Example 03 · Recorded / SD-L / D / Full.",
+      "alt": "Selected Pittsburgh initializations: recorded traffic, SD-L, D and Full; oriented boxes show vehicle positions and headings."
+    },
+    "rollout_compare_01": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/media/rollout_compare_01.mp4",
+      "poster": "assets/media/rollout_compare_01_poster.jpg",
+      "caption": "Selected D / Full rollout.",
+      "alt": "Selected paired rollout from D and Full initializations using the same Flow-ERD model."
+    },
+    "rollout_compare_02": {
+      "status": "verified",
+      "required": false,
+      "src": "assets/media/rollout_compare_02.mp4",
+      "poster": "assets/media/rollout_compare_02_poster.jpg",
+      "caption": "Selected Recorded / Full rollout. Recorded uses observed initial states, not future-trajectory replay.",
+      "alt": "Selected paired rollout from recorded and Full initial states using the same Flow-ERD model."
+    },
+    "rollout_compare_03": {
+      "status": "verified",
+      "required": false,
+      "src": "assets/media/rollout_compare_03.mp4",
+      "poster": "assets/media/rollout_compare_03_poster.jpg",
+      "caption": "Selected SD-L / Full rollout.",
+      "alt": "Selected paired rollout from SD-L and Full initializations using the same Flow-ERD model."
+    },
+    "pittsburgh_map01_sample01": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/pittsburgh/pittsburgh_map01_sample01.png",
+      "caption": "Map 01 · generation seed 1234.",
+      "alt": "Full initialization on Pittsburgh map 01, generation seed 1234; colors indicate geometric validity checks."
+    },
+    "pittsburgh_map01_sample02": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/pittsburgh/pittsburgh_map01_sample02.png",
+      "caption": "Map 01 · generation seed 403959.",
+      "alt": "Full initialization on Pittsburgh map 01, generation seed 403959; colors indicate geometric validity checks."
+    },
+    "pittsburgh_map01_sample03": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/pittsburgh/pittsburgh_map01_sample03.png",
+      "caption": "Map 01 · generation seed 885441.",
+      "alt": "Full initialization on Pittsburgh map 01, generation seed 885441; colors indicate geometric validity checks."
+    },
+    "pittsburgh_map02_sample01": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/pittsburgh/pittsburgh_map02_sample01.png",
+      "caption": "Map 02 · generation seed 1234.",
+      "alt": "Full initialization on Pittsburgh map 02, generation seed 1234; colors indicate geometric validity checks."
+    },
+    "pittsburgh_map02_sample02": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/pittsburgh/pittsburgh_map02_sample02.png",
+      "caption": "Map 02 · generation seed 441002.",
+      "alt": "Full initialization on Pittsburgh map 02, generation seed 441002; colors indicate geometric validity checks."
+    },
+    "pittsburgh_map02_sample03": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/pittsburgh/pittsburgh_map02_sample03.png",
+      "caption": "Map 02 · generation seed 885441.",
+      "alt": "Full initialization on Pittsburgh map 02, generation seed 885441; colors indicate geometric validity checks."
+    },
+    "pittsburgh_failure": {
+      "status": "verified",
+      "required": true,
+      "src": "assets/figs/pittsburgh/pittsburgh_failure.png",
+      "caption": "Failure example · Full.",
+      "alt": "Selected Pittsburgh failure example with an enlarged region showing overlaps and off-road placements."
+    }
+  }
+}
